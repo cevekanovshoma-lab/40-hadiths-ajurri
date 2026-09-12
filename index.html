@@ -1,647 +1,1005 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru" dir="ltr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Сорок Хадисов - Имам аль-Аджурри</title>
-    
-    <!-- Настройки для PWA (иконки и мобильный вид) -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="40 Хадисов">
-    
-    <!-- Принудительное обновление иконки (добавлен ?v=2) -->
-    <link rel="apple-touch-icon" href="image_2.png?v=2">
-    <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" type="image/png" href="image_2.png?v=2">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>40 Хадисов - аль-Аджурри</title>
+
+    <!-- Настройки для PWA (Apple) -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="40 Хадисов" />
+
+    <!-- Принудительные ссылки на вашу картинку image_2.png -->
+    <link rel="apple-touch-icon" href="./image_2.png?v=5" />
+    <link rel="icon" type="image/png" href="./image_2.png?v=5" />
+
+    <!-- Динамический манифест для Android -->
+    <link rel="manifest" id="dynamic-manifest" />
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
     <style>
-        .arabic-text { font-family: 'Amiri', serif; }
-        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-        
-        /* Золотисто-коричневый цвет для рамки номера */
-        .gold-badge {
-            background-color: #c0a16b;
-            color: white;
-            border: 2px solid #a88a53;
+      :root {
+        --primary-dark: #064e3b; /* Изумрудный 900 */
+        --primary: #047857; /* Изумрудный 700 */
+        --gold: #c0a16b; /* Золотисто-коричневый */
+        --gold-light: #fef3c7; /* Светлый янтарь */
+        --bg-color: #fdfbf7; /* Теплый бумажный фон */
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--bg-color);
+        -webkit-tap-highlight-color: transparent;
+        /* Легкий исламский паттерн на фоне */
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c0a16b' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      }
+
+      .arabic-text {
+        font-family: "Amiri", serif;
+        line-height: 2.2;
+      }
+
+      .gold-border {
+        border: 2px solid var(--gold);
+      }
+
+      .gold-gradient {
+        background: linear-gradient(135deg, #c0a16b 0%, #a88a53 100%);
+      }
+
+      /* Плавные анимации */
+      .fade-in {
+        animation: fadeIn 0.4s ease-out forwards;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
         }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      ::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #d1d5db;
+        border-radius: 4px;
+      }
     </style>
-</head>
-<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col justify-between selection:bg-[#c0a16b] selection:text-white">
+  </head>
+  <body
+    class="text-slate-800 h-screen flex flex-col overflow-hidden selection:bg-[#c0a16b] selection:text-white"
+  >
+    <script>
+      // Принудительный манифест для Android, чтобы 100% появилась иконка
+      const manifest = {
+        name: "40 Хадисов",
+        short_name: "40 Хадисов",
+        display: "standalone",
+        start_url: ".",
+        background_color: "#fdfbf7",
+        theme_color: "#064e3b",
+        icons: [
+          {
+            src: "./image_2.png?v=5",
+            sizes: "192x192 512x512",
+            type: "image/png",
+          },
+        ],
+      };
+      const manifestBlob = new Blob([JSON.stringify(manifest)], {
+        type: "application/json",
+      });
+      document.getElementById("dynamic-manifest").href =
+        URL.createObjectURL(manifestBlob);
+    </script>
 
     <!-- Шапка приложения -->
-    <header class="bg-emerald-800 text-white shadow-lg sticky top-0 z-20">
-        <div class="max-w-md mx-auto px-4 py-3.5 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <button onclick="toggleSidebar()" class="p-1.5 rounded-lg hover:bg-emerald-700 transition" aria-label="Список хадисов">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
-                <div>
-                    <h1 class="text-base font-bold tracking-wide leading-tight">Сорок Хадисов</h1>
-                    <p class="text-[11px] text-emerald-200">Имам аль-Аджурри</p>
-                </div>
-            </div>
-            <div class="flex items-center space-x-2">
-                <span class="text-xs bg-emerald-900/80 px-2.5 py-1 rounded-full font-medium border border-emerald-700" id="counter">1 / 40</span>
-                <button onclick="toggleBookmarksList()" class="p-1.5 rounded-lg hover:bg-emerald-700 transition relative" aria-label="Закладки">
-                    <svg class="w-5 h-5 text-amber-300" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
-                    </svg>
-                </button>
-            </div>
+    <header
+      class="bg-[#064e3b] text-white shadow-lg z-20 relative border-b-4 border-[#c0a16b]"
+    >
+      <!-- Декоративный паттерн в шапке -->
+      <div
+        class="absolute inset-0 opacity-10 pointer-events-none"
+        style="
+          background-image: url(&quot;data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='2' fill='%23ffffff'/%3E%3C/svg%3E&quot;);
+        "
+      ></div>
+
+      <div
+        class="max-w-md mx-auto px-4 py-3.5 flex justify-between items-center relative z-10"
+      >
+        <div class="flex items-center space-x-3">
+          <button
+            onclick="toggleSidebar()"
+            class="p-2 rounded-xl bg-white/10 hover:bg-white/20 transition active:scale-95"
+            aria-label="Меню"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h7"
+              ></path>
+            </svg>
+          </button>
+          <div>
+            <h1 class="text-lg font-bold tracking-wide font-serif">
+              Сорок Хадисов
+            </h1>
+            <p
+              class="text-[11px] text-[#c0a16b] font-medium tracking-wider uppercase"
+            >
+              Имам аль-Аджурри
+            </p>
+          </div>
         </div>
+        <div class="flex items-center space-x-3">
+          <span
+            class="text-xs bg-black/30 px-3 py-1.5 rounded-full font-bold shadow-inner"
+            id="counter"
+            >1 / 40</span
+          >
+        </div>
+      </div>
     </header>
 
-    <!-- Боковое меню (Содержание и Поиск) -->
-    <div id="sidebar" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden transition-opacity opacity-0 pointer-events-none">
-        <div class="absolute left-0 top-0 bottom-0 w-[85%] max-w-sm bg-white shadow-2xl flex flex-col transform -translate-x-full transition-transform duration-300" id="sidebar-content">
-            <div class="p-4 bg-emerald-800 text-white flex justify-between items-center border-b border-emerald-900">
-                <h2 class="font-bold text-lg">Содержание</h2>
-                <button onclick="toggleSidebar()" class="p-1 rounded-lg hover:bg-emerald-700 transition">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-            </div>
-            <div class="p-3 border-b bg-slate-50">
-                <input type="text" id="search-input" oninput="filterHadiths(this.value)" placeholder="Поиск по тексту или номеру..." class="w-full px-4 py-2.5 text-sm bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c0a16b]">
-            </div>
-            <div class="flex-1 overflow-y-auto divide-y divide-slate-100" id="hadiths-list-container">
-                <!-- Динамически заполняемый список -->
-            </div>
+    <!-- Боковое меню -->
+    <div
+      id="sidebar"
+      class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden transition-opacity opacity-0 pointer-events-none"
+    >
+      <div
+        class="absolute left-0 top-0 bottom-0 w-[85%] max-w-sm bg-[#fdfbf7] shadow-2xl flex flex-col transform -translate-x-full transition-transform duration-300"
+        id="sidebar-content"
+      >
+        <div
+          class="p-5 bg-[#064e3b] text-white flex justify-between items-center border-b-4 border-[#c0a16b]"
+        >
+          <h2 class="font-bold text-lg font-serif">Содержание</h2>
+          <button
+            onclick="toggleSidebar()"
+            class="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 transition"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </button>
         </div>
+
+        <div class="p-4 bg-white shadow-sm z-10 relative">
+          <div class="relative">
+            <svg
+              class="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              ></path>
+            </svg>
+            <input
+              type="text"
+              id="search-input"
+              oninput="filterHadiths(this.value)"
+              placeholder="Поиск по смыслу..."
+              class="w-full pl-10 pr-4 py-3 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#c0a16b] focus:bg-white transition"
+            />
+          </div>
+        </div>
+
+        <div class="flex-1 overflow-y-auto" id="hadiths-list-container">
+          <!-- Динамический список -->
+        </div>
+      </div>
     </div>
 
-    <!-- Модальное окно избранного -->
-    <div id="bookmarks-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
-        <div class="bg-white rounded-2xl w-full max-w-md max-h-[80vh] flex flex-col shadow-2xl overflow-hidden">
-            <div class="p-4 bg-emerald-800 text-white flex justify-between items-center">
-                <h2 class="font-bold text-base">Избранные хадисы</h2>
-                <button onclick="toggleBookmarksList()" class="p-1 rounded-lg hover:bg-emerald-700 transition">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
+    <!-- Основной контент -->
+    <main class="flex-1 overflow-y-auto relative w-full">
+      <div
+        class="max-w-md mx-auto p-4 min-h-full flex flex-col"
+        id="card-container"
+      >
+        <div
+          class="bg-white rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.08)] p-6 flex-1 flex flex-col relative overflow-hidden gold-border"
+        >
+          <!-- Орнамент в углу -->
+          <svg
+            class="absolute top-0 right-0 w-32 h-32 text-[#c0a16b] opacity-10 pointer-events-none transform translate-x-8 -translate-y-8"
+            viewBox="0 0 100 100"
+            fill="currentColor"
+          >
+            <path d="M50 0L60 40L100 50L60 60L50 100L40 60L0 50L40 40Z" />
+          </svg>
+
+          <div class="relative z-10 flex-1 space-y-6">
+            <!-- Номер хадиса -->
+            <div class="flex items-center justify-between">
+              <div
+                class="gold-gradient text-white px-5 py-2 rounded-full font-bold text-sm shadow-md flex items-center space-x-2"
+              >
+                <span>Хадис №</span>
+                <span id="hadith-num" class="text-lg">1</span>
+              </div>
+              <button
+                onclick="copyFullHadith()"
+                class="p-2 text-slate-400 hover:text-[#c0a16b] bg-slate-50 rounded-full transition"
+                title="Скопировать всё"
+              >
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                  ></path>
+                </svg>
+              </button>
             </div>
-            <div class="flex-1 overflow-y-auto p-4 space-y-2.5" id="bookmarks-container">
-                <!-- Закладки -->
+
+            <!-- Арабский текст -->
+            <div class="pt-2">
+              <p
+                class="arabic-text text-[26px] sm:text-[30px] text-[#064e3b] text-center"
+                id="arabic-text"
+                dir="rtl"
+              ></p>
             </div>
+
+            <!-- Разделитель -->
+            <div class="flex justify-center items-center py-2 opacity-30">
+              <div class="h-px bg-[#c0a16b] flex-1"></div>
+              <svg
+                class="w-6 h-6 text-[#c0a16b] mx-4"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 2L15 10H23L16 15L19 23L12 18L5 23L8 15L1 10H9L12 2Z"
+                />
+              </svg>
+              <div class="h-px bg-[#c0a16b] flex-1"></div>
+            </div>
+
+            <!-- Перевод -->
+            <div>
+              <h3
+                class="text-[10px] font-bold uppercase tracking-widest text-[#c0a16b] mb-3"
+              >
+                Русский перевод
+              </h3>
+              <p
+                class="text-slate-700 text-[15px] sm:text-[16px] leading-relaxed font-medium"
+                id="russian-text"
+              ></p>
+            </div>
+
+            <!-- Разъяснение (Польза) -->
+            <div
+              id="explanation-container"
+              class="bg-[#fef3c7]/50 border border-[#c0a16b]/30 rounded-2xl p-5 mt-6"
+            >
+              <h3
+                class="text-[10px] font-bold uppercase tracking-widest text-[#92400e] mb-2 flex items-center"
+              >
+                <svg
+                  class="w-4 h-4 mr-1.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+                Разъяснение и польза
+              </h3>
+              <p
+                class="text-[#78350f] text-[14px] leading-relaxed"
+                id="explanation-text"
+              ></p>
+            </div>
+          </div>
         </div>
-    </div>
-
-    <!-- Основной контент (Карточка хадиса) -->
-    <main class="flex-1 max-w-md w-full mx-auto p-3.5 sm:p-4 flex flex-col justify-between my-auto">
-        <div class="bg-white rounded-3xl shadow-sm border border-slate-200/80 p-5 sm:p-6 flex-1 flex flex-col justify-between relative overflow-hidden">
-            
-            <div class="space-y-5 relative z-10">
-                <!-- Верхняя панель карточки: Номер (Золотистый) и Закладка -->
-                <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                    <span class="text-xs font-bold uppercase tracking-wider gold-badge px-3.5 py-1.5 rounded-full shadow-sm">
-                        Хадис № <span id="hadith-num">1</span>
-                    </span>
-                    <button onclick="toggleBookmarkCurrent()" id="bookmark-btn" class="text-slate-400 hover:text-amber-500 transition p-1.5 rounded-full hover:bg-slate-50" title="В закладки">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" id="bookmark-icon">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
-                        </svg>
-                    </button>
-                </div>
-
-                <!-- Текст на арабском -->
-                <div>
-                    <div class="flex justify-between items-center mb-1.5">
-                        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Арабский текст</span>
-                        <button onclick="copyArabic()" class="text-xs text-[#c0a16b] hover:underline font-medium">Копировать</button>
-                    </div>
-                    <div class="bg-slate-50/80 p-4 sm:p-5 rounded-2xl border border-slate-100">
-                        <p class="arabic-text text-2xl sm:text-3xl leading-loose text-right text-slate-900" id="arabic-text" dir="rtl"></p>
-                    </div>
-                </div>
-
-                <!-- Перевод на русский -->
-                <div>
-                    <div class="flex justify-between items-center mb-1.5">
-                        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Перевод</span>
-                        <button onclick="copyRussian()" class="text-xs text-[#c0a16b] hover:underline font-medium">Копировать</button>
-                    </div>
-                    <p class="text-slate-800 text-sm sm:text-base leading-relaxed font-normal" id="russian-text"></p>
-                </div>
-
-                <!-- Объяснение / Польза -->
-                <div class="bg-amber-50/70 border border-amber-200/60 rounded-2xl p-4">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-[#c0a16b] mb-1.5 flex items-center space-x-1">
-                        <svg class="w-4 h-4 mr-1 text-[#c0a16b] inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                        <span>Польза и разъяснение</span>
-                    </h3>
-                    <p class="text-amber-950/90 text-xs sm:text-sm leading-relaxed" id="explanation-text"></p>
-                </div>
-            </div>
-
-            <!-- Нижняя навигация -->
-            <div class="flex gap-3 mt-8 pt-4 border-t border-slate-100 relative z-10">
-                <button onclick="prevHadith()" id="prev-btn" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium py-3 px-4 rounded-xl transition text-sm disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center space-x-1.5">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                    <span>Назад</span>
-                </button>
-                <button onclick="nextHadith()" id="next-btn" class="flex-1 gold-badge hover:brightness-110 font-medium py-3 px-4 rounded-xl transition text-sm flex items-center justify-center space-x-1.5 border-none">
-                    <span>Вперед</span>
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                </button>
-            </div>
-        </div>
+      </div>
     </main>
 
-    <!-- Уведомления -->
-    <div id="toast" class="fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-slate-900 text-white px-4 py-2.5 rounded-xl text-xs font-medium shadow-xl opacity-0 pointer-events-none transition-opacity duration-300 z-50">
-        Текст скопирован
+    <!-- Нижняя навигация -->
+    <div
+      class="bg-white border-t border-slate-200 px-4 py-3 z-20 shadow-[0_-5px_15px_rgba(0,0,0,0.05)]"
+    >
+      <div class="max-w-md mx-auto flex gap-3">
+        <button
+          onclick="prevHadith()"
+          id="prev-btn"
+          class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-3.5 px-4 rounded-xl transition text-sm disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 19l-7-7 7-7"
+            ></path>
+          </svg>
+          <span>Назад</span>
+        </button>
+        <button
+          onclick="nextHadith()"
+          id="next-btn"
+          class="flex-1 gold-gradient text-white font-semibold py-3.5 px-4 rounded-xl transition shadow-lg shadow-[#c0a16b]/30 text-sm flex items-center justify-center space-x-2"
+        >
+          <span>Вперед</span>
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Уведомления (Toast) -->
+    <div
+      id="toast"
+      class="fixed bottom-24 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white px-5 py-3 rounded-full text-sm font-medium shadow-xl opacity-0 pointer-events-none transition-opacity duration-300 z-50 flex items-center space-x-2"
+    >
+      <svg
+        class="w-5 h-5 text-green-400"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M5 13l4 4L19 7"
+        ></path>
+      </svg>
+      <span id="toast-msg">Скопировано</span>
     </div>
 
     <script>
-        // ПОЛНАЯ БАЗА ИЗ 40 ХАДИСОВ
-        const hadiths = [
-            {
-                id: 1,
-                arabic: "عَنْ أَبِي هُرَيْرَةَ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: مَنْ يُرِدِ اللَّهُ بِهِ خَيْرًا يُفَقِّهْهُ فِي الدِّينِ",
-                russian: "От Абу Хурайры, который сказал: Сказал Посланник Аллаха: «Кому Аллах желает блага, даёт понимание в Веровании».",
-                explanation: "Этот хадис указывает на то, что тот, кто не обрёл правильное понимание в своём веровании (не изучает основы религии, обязательные знания об омовении, молитве и т.д.), в том нет блага. Стремление к знаниям — обязанность каждого мусульманина."
-            },
-            {
-                id: 2,
-                arabic: "عَنْ أَبِي أُمَامَةَ الْبَاهِلِي: رَضِيَ اللَّهُ عَنْهُ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: عَلَيْكُمْ بِالْعِلْمِ قَبْلَ أَنْ يُقْبَضَ: وَقَبْلَ أَنْ يُرْفَعَ... الْعَالِمُ وَالْمُتَعَلِّّمُ شَرِيكَانِ فِي الْأَجْرِ",
-                russian: "От Абу Умамы аль-Бахили, что Посланник Аллаха сказал: «Вам следует получать знания, пока оно не будет забрано, или оно не будет поднято... Знающий и получающий знания являются соучастниками в награде, и нет блага в людях после этого».",
-                explanation: "Пророк побуждает получать знания до того, как исчезнут обладатели знаний (учёные). Благо есть только среди тех, кто получает знания, и тех, кто обучает."
-            },
-            {
-                id: 3,
-                arabic: "عُمَرَ بْنَ الْخَطَابِ رَضِيَ اللَّهُ عَنْهُ يَقُولُ: إِنَّمَا الْأَعْمَالُ بِالنِّيَّةِ: وَإِنَّمَا لِامْرِئٍ مَا نَوَى...",
-                russian: "От Умара бин аль-Хаттаба: я слышал, как Пророк сказал: «Поистине, дела оцениваются только по намерению и, поистине, каждому человеку достанется лишь то, что он намеревался обрести...»",
-                explanation: "Этот хадис является одним из величайших устоев Ислама. Ни одно поклонение не принимается без искреннего намерения ради Лика Аллаха Всевышнего, а не ради того, чтобы это увидели люди."
-            },
-            {
-                id: 4,
-                arabic: "عَنِ ابْنِ عُمَرَ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: بُنِيَ الإِسْلَامُ عَلَى خَمْسٍ: شَهَادَةِ أَنْ لَا إِلَهَ إِلَّا اللَّهُ: وَأَنَّ مُحَمَّدًا رَسُولُ اللَّهِ: وَإِقَامِ الصَّلَاةِ: وَإِيتَاءِ الزَّكَاةِ: وَصَوْمِ شَهْرٍ رَمَضَانَ: وَحَجَّ الْبَيْتِ",
-                russian: "От Ибн Умара, что Посланник Аллаха сказал: «Ислам основывается на пяти (столпах): свидетельстве о том, что нет бога, кроме Аллаха, и что Мухаммад — посланник Аллаха, совершении молитвы, выплате закята, совершении хаджа и соблюдении поста в рамадане».",
-                explanation: "Эти пять столпов образуют основу религиозной практики мусульманина. Оставление молитвы или отрицание обязательности этих столпов выводит человека из ислама."
-            },
-            {
-                id: 5,
-                arabic: "عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ.. قِصَّةُ حَدِيثِ جِبْرِيلَ عَلَيْهِ السَّلَامُ وَسُؤَالِهِ عَنِ الْإِسْلَامِ وَالْإِيمَانِ وَالْإِحْسَانِ",
-                russian: "Хадис о приходе ангела Джибриля (мир ему) в человеческом облике к Пророку, когда он спросил об Исламе, Имане (вере), Ихсане (совершенстве в поклонении) и Часе, а в конце Пророк сказал: «Поистине, это Джибриль приходил к вам, дабы научить вас вашему верованию!»",
-                explanation: "Этот исчерпывающий хадис охватывает все ступени религии: практические столпы (Ислам), внутренние убеждения (Иман) и поклонение Всевышнему с абсолютной искренностью и трепетом (Ихсан)."
-            },
-            {
-                id: 6,
-                arabic: "عَنْ عَبْدِ اللَّهِ بْنِ مَسْعُودٍ قَالَ: حَدَّثَنَا رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ.. إِنَّ خَلْقَ أَحَدِكُمْ يُجْمَعُ فِي بَطْنِ أُمِّهِ أَرْبَعِينَ لَيْلَةً... وَيُكْتَبُ عَمَلَهُ وَأَجَلَهُ وَرِزْقَهُ وَشَقِيٌّ أَمْ سَعِيدٌ",
-                russian: "От Абдуллаха бин Мас'уда: «Правдивый и достойный доверия Посланник Аллаха сказал нам: „Поистине, каждый из вас формируется во чреве своей матери сорока ночами... а затем Аллах направляет ангела записать четыре вещи: его дела, его срок, его удел, а также несчастным он будет или счастливым“».",
-                explanation: "Основа веры в предопределение (кадар). Всё предопределено Всевышним Аллахом, однако человеку вменено в обязанность совершать благие деяния и просить содействия у Аллаха."
-            },
-            {
-                id: 7,
-                arabic: "عَنْ عَلِيِّ بْنِ أَبِي طَالِبٍ رَضِيَ اللَّهُ عَنْهُ قَالَ: كُنَّا فِي جَنَازَةٍ.. فَقَالَ: مَا مِنْكُمْ مِنْ نَفْسٍ مَنْفُوسَةٍ إِلَّا وَقَدْ كُتِبَ مَكَانُهَا مِنَ الْجَنَّةِ وَالنَّارِ.. فَقَالَ: اعْمَلُوا فَكُلُّ مُيَسَّرٌ لِعَمَلِهِ",
-                russian: "От Али бин Абу Талиба: когда Пророк рассказал о предопределении судеб, один человек спросил: «О Посланник Аллаха, так не положиться ли нам на то, что уже предопределено, и не отказаться ли от дел?» Пророк ответил: «Вы совершайте деяния, и каждому будет облегчено к его деянию».",
-                explanation: "Нельзя оправдывать бездействие предопределением. Человек обязан усердствовать в поклонении, а Всевышний облегчает праведным путь к благому."
-            },
-            {
-                id: 8,
-                arabic: "عَنْ عَبْدِ الرَّحْمَنِ بْنِ عَمْرٍو السُّلَمِي وَحُجْرٍ الْكَلَاعِيِّ.. عَنِ الْعِرْبَاضِ بْنِ سَارِيَةَ.. وَعَيْكُمْ بِسُنَّتِي وَسُنَّةِ الْخُلَفَاءِ الرَّاشِدِينَ.. وَإِيَّاكُمْ وَمُحْدَثَاتِ الْأُمُورِ فَإِنَّ كُلَّ بِدْعَةٍ ضَلَالَةٌ",
-                russian: "От Абдуррахмана бин Амра и Худжра аль-Каля'и, что аль-Ирбад бин Сарийя передал завещание Пророка: «Я завещаю вам остерегаться наказания Аллаха, слушаться и повиноваться... Вам следует придерживаться моей сунны и сунны праведных халифов... И вам следует отстраняться от новшеств в Исламе, ибо каждое новшество — это нововведение, а каждое нововведение — заблуждение».",
-                explanation: "Важнейшее руководство во времена разногласий: держаться Сунны Пророка и пути сподвижников, избегая любых религиозных нововведений (бид'а)."
-            },
-            {
-                id: 9,
-                arabic: "عَنِ ابْنِ مَسْعُودٍ عَنْ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: كَانَ الْكِتَابُ الْأَوَّلُ نَزَلَ مِنْ بَابٍ وَاحِدٍ.. وَنَزَلَ الْقُرْآنُ مِنْ سَبْعَةِ أَبْوَابٍ عَلَى سَبْعَةِ أَحْرُفٍ زَاجِرٍ وَآمِرٍ وَحَلَالٍ وَحَرَامٍ...",
-                russian: "От Ибн Мас'уда, что Посланник Аллаха сказал: «А Коран был ниспослан через семь дверей, которые соответствуют семи харфам... Поэтому считайте дозволенным то, что названо дозволенным, и запретным то, что названо запретным...»",
-                explanation: "Необходимо следовать установлениям Корана и Сунны, подчиняясь приказам Аллаха и отстраняясь от запретов, изучая Книгу через разъяснения Пророка."
-            },
-            {
-                id: 10,
-                arabic: "عَنْ عَبْدِ الرَّحْمَنِ بْنِ عَوْفٍ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: أَبُو بَكْرٍ فِي الْجَنَّةِ وَعُمَرُ فِي الْجَنَّةِ وَعُثْمَانُ فِي الْجَنَّةِ وَعَلِيٌّ فِي الْجَنَّةِ...",
-                russian: "От Абдуррахмана бин Ауфа, что Посланник Аллаха сказал: «Абу Бакр в Раю, Умар в Раю, Усман в Раю, Али в Раю, Тальха в Раю, аз-Зубайр в Раю, Абдуррахман в Раю, Са'д в Раю, Са'ид в Раю, Абу Убайда бин аль-Джаррах в Раю».",
-                explanation: "Вера в достоинства десяти обрадованных Раем сподвижников и любовь ко всем сподвижникам Пророка — признак истинной веры и безопасности от лицемерия."
-            },
-            {
-                id: 11,
-                arabic: "عَنْ عَبْدِ الرَّحْمَنِ بْنِ سَالِمِ بْنِ عَوْيْمِ بْنِ سَاعِدَةَ عَنْ أَبِيهِ عَنْ جَدِهِ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: إِنَّ اللَّهَ عَزَّ وَجَلَّ اخْتَارَنِي وَاخْتَارَ لِي أَصْحَابًا فَجَعَلَ لِي مِنْهُمْ وُزَرَاءَ وَأَنْصَارًا وَأَصْهَارًا فَمَنْ سَبَّهُمْ فَعَلَيْهِ لَعْنَةُ اللَّهِ...",
-                russian: "От предков Абдуррахмана бин Салима, что Посланник Аллаха сказал: «Поистине, Аллах выбрал меня и выбрал для меня сподвижников... Кто же будет ругать их, то на нём будет проклятие Аллаха, ангелов и всех людей».",
-                explanation: "Запрет оскорблять сподвижников Пророка, ибо они — наилучшее поколение общины, передавшее нам Коран и Сунну."
-            },
-            {
-                id: 12,
-                arabic: "عَنْ عَلِيِّ بْنِ أَبِي طَالِبٍ رَضِيَ اللَّهُ عَلَيْهِ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: الْإِيمَانُ قَوْلٌ بِاللِّسَانِ وَعَمَلٌ بِالْأَرْكَانِ وَيَقِينٌ بِالْقَلْبِ",
-                russian: "От Али бин Абу Талиба, что Посланник Аллаха сказал: «Вера — это сказать языком, делать частями тела и убеждённость сердцем».",
-                explanation: "Основа вероучения Ахлю-с-Сунна: вера состоит из убеждения в сердце, слов языком и обязательных деяний телом (молитва, закят и т.д.)."
-            },
-            {
-                id: 13,
-                arabic: "عَنْ عَبْدِ اللَّهِ بْنِ عَمْرِو بْنِ الْعَاصِ: أَنَّ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: وَسَتَفْتَرِقُ أُمَّتِي عَلَى ثَلَاثٍ وَسَبْعِينَ مِلَّةً كُلُّهَا فِي النَّارِ إِلَّا مِلَّةً وَاحِدَةً.. قَالَ: مَا أَنَا عَلَيْهُ وَأَصْحَابِي",
-                russian: "От Абдуллаха бин Амра, что Пророк сказал: «Моя община разделится на семьдесят три толка, и все они окажутся в Огне, кроме одного толка». Спросили: «Кто они?» Он сказал: «Это тот [толк], на котором я и мои сподвижники».",
-                explanation: "Спасение заключается строго в следовании пути Пророка и его сподвижников (пути Ахлю-с-Сунна валь-Джама'а)."
-            },
-            {
-                id: 14,
-                arabic: "عَنْ أُبَيِّ بْنِ كَعْبٍ: أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ دَعَا بِوَضُوءٍ فَتَوَضَّأَ مَرَّةً مَرَّةً.. ثُمَّ مَرَّتَيْنِ.. ثُمَّ ثَلَاثًا ثَلَاثًا وَقَالَ: هَذَا وُضُوئِي وَوُضُوءُ الْأَنْبِيَاءِ مِنْ قَبْلِي",
-                russian: "От Убайя бин Ка'ба, что Посланник Аллаха совершил омовение, омывая части тела по одному разу (обязательный минимум), по два раза (двойная награда) и по три раза (полное омовение пророков).",
-                explanation: "Указание на порядок и кратность омовения, без которого не принимается обязательная молитва."
-            },
-            {
-                id: 15,
-                arabic: "عَنْ عَبْدِ خَيْرٍ قَالَ: أَتَيْنَا عَلِيَّ بْنَ أَبِي طَالِبٍ.. فَدَعَا بِالطَّهُورِ فَغَسَلَ يَدَيْهِ ثَلَاثًا.. وَمَضْمَضَ وَاسْتَنْشَقَ.. وَقَالَ: مَنْ سَرَّهُ أَنْ يَعْلَمَ وُضُوءَ رَسُولِ اللَّهِ فَهُوَ هَذَا",
-                russian: "От Абду Хайра: мы пришли к Али бин Абу Талибу, когда он совершил молитву, но попросил воду и показал подробное омовение, сказав: «Кто хочет знать, как совершал омовение Посланник Аллаха, то он делал это так».",
-                explanation: "Наглядный пример сподвижников в обучении правильному омовению Пророка."
-            },
-            {
-                id: 16,
-                arabic: "عَنِ ابْنِ عَبَّاسٍ عَنْ خَالَتِهِ مَيْمُونَةَ زَوْجِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَتْ: وَضَعَتُ لِلنَّبِيِّ غُسْلاً فَاغْتَسَلَ مِنَ الْجَنَابَةِ.. وَغَسَلَ كَفَّيْهِ ثُمَّ أَفَاضَ عَلَى فَرْجِهِ...",
-                russian: "От Маймуны (жены Пророка), описывающей полное омовение (гусль) Пророка после осквернения: мытьё рук, половых органов, полоскание рта и носа, омовение тела и ног.",
-                explanation: "Правила совершения большого омовения (гусля) в соответствии с Сунной."
-            },
-            {
-                id: 17,
-                arabic: "عَنْ أَبِي الدَّرْدَاءِ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: خَمْسٌ مَنْ جَاءَ بِهِنَّ يَوْمَ الْقِيَامَةِ مَعَ إِيمَانٍ دَخَلَ الْجَنَّةِ: مُحَافَظَةٌ عَلَى الصَّلَوَاتِ الْخَمْسِ.. وَإِيتَاءُ الزَّكَاةِ.. وَصَوْمُ رَمَضَانَ.. وَحَجُّ الْبَيْتِ.. وَأَدَاءُ الْأَمَانَةِ (الغُسْل)",
-                russian: "От Абу ад-Дарды, что Посланник Аллаха сказал: «Кто придет с этими пятью деяниями в День Воскрешения, имея при этом веру, войдет в Рай: пять молитв, закят, пост в Рамадан, хадж и отдача доверенного (совершение большого омовения)».",
-                explanation: "Важность выполнения обязательных предписаний религии вместе с чистой верой."
-            },
-            {
-                id: 18,
-                arabic: "عَنْ مُحَمَّدِ بْنِ عَمْرِو الْعَامِرِيِّ قَالَ: كُنْتُ فِي مَجْلِسٍ مِنْ أَصْحَابِ رَسُولِ اللَّهِ.. قَالَ أَبُو حُمَيْدٍ السَّاعِدِيُّ: أَنَا أُعَلِّمُكُمْ صَلَاةَ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ",
-                russian: "От Абу Хумайда ас-Са'иди, описавшего молитву Пророка: возвеличение Аллаха, правильный поясной поклон с расставленными пальцами и выпрямленной спиной, земной поклон и правильные положения сидя.",
-                explanation: "Подробное руководство к совершению намаза в точном соответствии с Сунной."
-            },
-            {
-                id: 19,
-                arabic: "عَنْ عَلِيِّ بْنِ يَحْيَى الزُّرَقِ عَنْ أَبِيهِ عَنْ عَمِّهِ (البدري): قِصَّةُ الرَّجُلِ الَّذِي لَمْ يُصِدِقْ فِي صَلَاتِهِ، فَقَالَ لَهُ النَّبِيُّ: ارْجِعْ فَصَلِّ فَإِنَّكَ لَمْ تُصَلِّ.. (حديث المسيء صلاته)",
-                russian: "Хадис о человеке, чья молитва была признана неполной («Иди и помолись снова, ибо ты не помолился»), после чего Пророк обучил его спокойствию (тума'нина) в поясных и земных поклонах.",
-                explanation: "Спешка в молитве и отсутствие внутреннего спокойствия (покоя в каждом движении) делают молитву недействительной."
-            },
-            {
-                id: 20,
-                arabic: "عَنْ أَبِي عَبْدِ اللَّهِ الْأَشْعَرِي قَالَ: صَلَّى رَسُولُ اللَّهِ بِأَصْحَابِهِ.. وَرَأَى رَجُلًا يَنْقُرُ فِي صَلَاتِهِ كَمَا يَنْقُرُ الْغُرَابُ الدَّمَ.. فَقَالَ: لَوْ مَاتَ عَلَى هَذَا لَمَاتَ عَلَى غَيْرِ مِلَّةِ مُحَمَّدٍ",
-                russian: "От Абу Абдуллаха аль-Аш'ари: Пророк увидел человека, который «клевал» в земном поклоне как ворон, и сказал: «Если этот человек умрёт на этом, то он умрёт не на веровании Мухаммада».",
-                explanation: "Предупреждение против небрежного отношения к молитве и спешки при её совершении."
-            },
-            {
-                id: 21,
-                arabic: "عَنْ شَهْرِ بْنِ حَوْشَبٍ أَنَّهُ لَقِيَ أَبَا أُمَامَةَ الْبَاهِلِيَّ.. (في فضل الجهاد والوضوء): مَنْ قَامَ إِلَى الْوُضُوءِ يَرَاهُ حَقًّا عَلَيْهِ وَاجِبًا فَمَضْمَضَ فَاهُ غُفِرَتْ لَهُ ذُنُوبَهُ مَعَ أَوَّلِ قَطْرَةٍ...",
-                russian: "От Абу Умамы о достоинстве омовения: «Кто встанет для совершения омовения, считая его своей обязанностью, ополоснув рот, тому будут прощены грехи с первой каплей...»",
-                explanation: "Омовение смывает грехи малых прегрешений с каждой омываемой частью тела."
-            },
-            {
-                id: 22,
-                arabic: "عَنْ أَبِي أَيُّوبَ الْأَنْصَارِيِّ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: مَنْ تَوَضَّأَ كَمَا أُمِرَ وَصَلَّى كَمَا أُمِرَ غُفِرَ لَهُ مَا تَقَدَّمَ مِنْ عَمَلِهِ",
-                russian: "От Абу Аййуба аль-Ансари, что Посланник Аллаха сказал: «Кто совершит омовение так, как было велено, и совершит молитву так, как было велено, тому будут прощены все его прежние грехи».",
-                explanation: "Награда за правильное выполнение омовения и молитвы по Сунне — прощение грехов."
-            },
-            {
-                id: 23,
-                arabic: "عَنْ أَبِي هُرَيْرَةَ عَنْ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: أَيُّمَا رَجُلٍ لَهُ مَالٌ لَمْ يُعْطِ حَقَّ اللَّهِ.. إِلَّا جَعَلَهُ اللَّهُ شُجَاعًا أَقْرَعَ.. يَنْهَشُهُ يَوْمَ الْقِيَامَةِ",
-                russian: "От Абу Хурайры, что Посланник Аллаха сказал: «Для любого человека, у которого было имущество, с которого он не выплачивал право Аллаха (закят), Аллах сделает в День Воскрешения ядовитую змею, которая будет кусать его...»",
-                explanation: "Суровое наказание для тех, кто уклоняется от выплаты обязательного закята со своего имущества."
-            },
-            {
-                id: 24,
-                arabic: "عَنْ أَبِي ذَرٍّ قَالَ: انْتَهَيْتُ إِلَى النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ وَهُوَ جَالِسٌ فِي ظِلِّ الْكَعْبَةِ.. هُمُ الْأَخْسَرُونَ.. [أصحاب الأموال الكثيرة إلا من أعطى حقه]",
-                russian: "От Абу Зарра о словах Пророка возле Каабы: «Потерпят наибольший ущерб обладатели больших богатств, кроме тех, кто расходовал направо и налево (раздавал милостыню) и выплачивал закят со скота...»",
-                explanation: "Богатство может стать проклятием, если с него не выплачивается закят и оно не расходуется на благотворительность."
-            },
-            {
-                id: 25,
-                arabic: "عَنْ أَبِي سَعِيدٍ الْخُدْرِيِّ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: لَيْسَ فِيمَا دُونَ خَمْسِ أَوَاقٍ صَدَقَةٌ، وَلَيْسَ فِيمَا دُونَ خَمْسِ ذَوْدٍ صَدَقَةٌ، وَلَيْسَ فِيمَا دُونَ خَمْسِ أَوْسُقٍ صَدَقَةٌ",
-                russian: "От Абу Са'ида аль-Худри, что Посланник Аллаха сказал: «Не следует выплачивать садаку (закят) с имущества менее пяти окий (серебра), менее пяти верблюдов и менее пяти васков (зерна/фиников)».",
-                explanation: "Установление минимального порога (нисаба), по достижении которого имущество облагается обязательным закятом."
-            },
-            {
-                id: 26,
-                arabic: "عَنِ ابْنِ عُمَرَ أَنَّ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ كَتَبَ كِتَابَ الصَّدَقَةِ.. (تفصيل أنصبة الزكاة في الإبل والغنم)",
-                russian: "От Ибн Умара о письменном предписании Пророка по сбору закята: детальные правила исчисления закята с верблюдов, овец и запрет на объединение или разделение стад из хитрости.",
-                explanation: "Четкие правила шариата по расчету обязательного закята со скота."
-            },
-            {
-                id: 27,
-                arabic: "عَنْ أَبِي هُرَيْرَةَ عَنْ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: مَنْ صَامَ رَمَضَانَ إِيمَانًا وَاحْتِسَابًا غُفِرَ لَهُ مَا تَقَدَّمَ مِنْ ذَنْبِهِ",
-                russian: "От Абу Хурайры, что Посланник Аллаха сказал: «Тому, кто станет соблюдать пост в месяц Рамадан с верой и надеждой на награду Аллаха, будут прощены его прежние грехи».",
-                explanation: "Огромная милость Всевышнего: прощение прошлых грехов за искренний пост в Рамадан."
-            },
-            {
-                id: 28,
-                arabic: "عَنِ ابْنِ عَبَّاسٍ فِي قَوْلِهِ تَعَالَى: ﴿كُتِبَ عَلَيْكُمُ الصِّيَامُ﴾.. (قصة نسخ الصيام الأول وتحديد أحكام رمضان)",
-                russian: "От Ибн Аббаса об истории изменения предписаний поста: в начале ислама постились по три дня в месяц и запрещалось есть/пить после ночного сна; затем Аллах ниспослал облегчение (дозволение близости, еды и питья ночи напролет).",
-                explanation: "Забота Аллаха об общине и облегчение законов поста."
-            },
-            {
-                id: 29,
-                arabic: "عَنِ ابْنِ عُمَرَ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: الشَّهْرُ تِسْعُ وَعِشْرُونَ لَيْلَةً فَلَا تَصُومُوا حَتَّى تَرَوْهُ وَلَا تُفْطِرُوا حَتَّى تَرَوْهُ فَإِنْ غُمِّيَ عَلَيْكُمْ فَاقْدُرُوا لَهُ",
-                russian: "От Ибн Умара, что Посланник Аллаха сказал: «Поистине, месяц состоит из двадцати девяти дней, поэтому не поститесь, пока не увидите луну, и не прекращайте пост, пока не увидите ее; а если небо закрыто облаками, то рассчитывайте его».",
-                explanation: "Метод определения начала и окончания месяцев поста по лунному календарю (визуальное наблюдение или расчет при облачности)."
-            },
-            {
-                id: 30,
-                arabic: "عَنِ ابْنِ عَبَّاسٍ.. قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: مَنْ أَرَادَ الْحَجَّ فَلْيَتَعَجَّلْ، فَإِنَّهُ قَدْ يَمْرَضُ الْمَرِيضُ، وَتَضِلُّ الضَّالَّةُ، وَتَعْرِضُ الْحَاجَةُ",
-                russian: "От Ибн Аббаса, что Посланник Аллаха сказал: «Кто хочет совершить хадж, пусть поторопится, ибо человек может заболеть, или потерять животное, или у него возникнет нужда».",
-                explanation: "Настоятельное побуждение не откладывать обязательный хадж при наличии возможности."
-            },
-            {
-                id: 31,
-                arabic: "عَنْ أَبِي أُمَامَةَ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: مَنْ لَمْ يَحْبِسْهُ حَاجَةٌ ظَاهِرَةٌ، أَوْ مَرَضٌ حَابِسٌ، أَوْ سُلْطَانٌ جَائِرٌ، وَلَمْ يَحُجَّ، فَلْيَمُوت إنْ شَاءَ يَهُودِيًّا أَوْ نَصْرَانِيًّا",
-                russian: "От Абу Умамы, что Посланник Аллаха сказал: «Кого от совершения хаджа не удерживала явная нужда, болезнь или правитель-тиран, и он не совершил хадж, то пусть умрет, если хочет, иудеем, или если хочет, христианином».",
-                explanation: "Суровое предупреждение об опасности пренебрежения обязательным паломничеством (хаджем)."
-            },
-            {
-                id: 32,
-                arabic: "عَنِ ابْنِ عَبَّاسٍ فِي قَوْلِهِ: ﴿وَلِلَّهِ عَلَى النَّاسِ حِجُّ الْبَيْتِ مَنِ اسْتَطَاعَ إِلَيْهِ سَبِيلًا﴾.. (معنى السبيل وأن من أنكر وجوبه كفر)",
-                russian: "От Ибн Аббаса о словах «...для тех, кто в состоянии совершить к нему путь»: «Путь означает телесное здоровье и средства на дорогу без причинения нужды; а кто проявит неверие [отрицая обязательность хаджа], тот становится неверующим».",
-                explanation: "Разъяснение условий обязательности хаджа и греха отрицания его предписаний."
-            },
-            {
-                id: 33,
-                arabic: "عَنْ شُرَحْبِيلَ بْنِ السَّمْطِ عَنْ سَلْمَانَ الْفَارِسِيِّ قَالَ: سَمِعْتُ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَقُولُ: رِبَاطُ يَوْمٍ فِي سَبِيلِ اللَّهِ خَيْرٌ مِنْ صِيَامِ شَهْرٍ وَقِيَامِهِ...",
-                russian: "От Сальмана аль-Фариси, что он слышал, как Посланник Аллаха сказал: «День несения дежурства (рибат) на пути Аллаха лучше, чем месяц молитв и поста; а кто умрет на дежурстве, тому будет записана награда усердствующего до Судного дня».",
-                explanation: "Огромная благодать и награда за охрану рубежей ислама и защиту мусульман."
-            },
-            {
-                id: 34,
-                arabic: "عَنْ عُبَادَةَ بْنِ الصَّامِتِ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: جَاهِدُوا فِي اللَّهِ قُرْبًا وَبُعْدًا.. فَإِنَّ الْجِهَادَ بَابٌ مِنْ أَبْوَابِ الْجَنَّةِ، يُنْجِي اللَّهُ بِهِ مِنَ الْهَمِّ وَالْغَمِّ",
-                russian: "От Убады бин ас-Самита, что Посланник Аллаха сказал: «Усердствуйте ради Аллаха... ибо усердие на пути Аллаха — одна из дверей Рая, и оно спасает от забот и печали».",
-                explanation: "Побуждение к усердию на пути Всевышнего ради обретения Его довольства и душевного покоя."
-            },
-            {
-                id: 35,
-                arabic: "عَنْ عُبَيْدِ بْنِ عُمَيْرٍ عَنْ أَبِيهِ (صحابي) أَنَّ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ فِي حَجَّةِ الْوَدَاعِ: أَلَا أُخْبِرُكُمْ بِالْمُصْطَفَيْنَ؟.. (الصلوات الخمس وصوم رمضان واجتناب الكبائر التسع)",
-                russian: "От отца Убейда бин Умайра во время прощального хаджа: Пророк перечислил условия вхождения в Рай (пять молитв, пост Рамадан, закят, избегание 9 больших грехов: ширк, убийство, бегство с поля боя, колдовство, поедание имущества сироты, ростовщичество, обвинение целомудренных женщин, непослушание родителям, посягательство на Каабу).",
-                explanation: "Четкий перечень тяжких грехов, губящих человека, и гарантия Рая при их избегании."
-            },
-            {
-                id: 36,
-                arabic: "عَنْ جَابِرِ بْنِ عَبْدِ اللَّهِ عَنْ عَبْدِ الرَّحْمَنِ بْنِ عَوْفٍ قَالَ: أَخَذَ رَسُولُ اللَّهِ بِيَدِي إِلَى ابْنِهِ إِبْرَاهِيمَ وَهُوَ يَجُودُ بِنَفْسِهِ.. فَبَكَى النَّبِيُّ.. وَقَالَ: إِنَّ الْعَيْنَ تَدْمَعُ وَالْقَلْبَ يَحْزَنُ، وَلَا نَقُولُ إِلَّا مَا يُرْضِي رَبَّنَا",
-                russian: "От Абдуррахмана бин Ауфа: Пророк взял его за руку к умирающему сыну Ибрахиму, и когда из его глаз потекли слезы, он сказал: «Поистине, глаза плачут, и сердце скорбит, но мы не скажем ничего, кроме того, что гневит [радует] нашего Господа».",
-                explanation: "Разрешенность слез и естественной скорби при утрате близких при сохранении полного терпения и довольства волей Аллаха."
-            },
-            {
-                id: 37,
-                arabic: "عَنْ تَمِيمٍ الدَّارِيِّ أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: الدِّينُ النَّصِيحَةُ! قُلْنَا: لِمَنْ؟ قَالَ: لِلَّهِ وَلِكِتَابِهِ وَلِرَسُولِهِ وَلِأَئِمَّةِ الْمُسْلِمِينَ وَعَامَّتِهِمْ",
-                russian: "От Тамима ад-Дари, что Посланник Аллаха трижды повторил: «Поистине, вера (религия) — это искреннее отношение (насиха)!» Спросили: «К кому, о Посланник Аллаха?» Он сказал: «К Аллаху, Его Книге, Его Посланнику, предводителям мусульман и простым верующим».",
-                explanation: "Суть ислама заключается в искренности в отношении Творца, Его Писания, Пророка, правителей и всех мусульман."
-            },
-            {
-                id: 38,
-                arabic: "عَنِ النُّعْمَانِ بْنِ بَشِيرٍ قَالَ سَمِعْتُ رَسُولَ اللَّهِ يَقُولُ: الْحَلَالُ بَيِّنٌ وَالْحَرَامُ بَيِّنٌ، وَبَيْنَهُمَا مُشْتَبِهَاتٌ لَا يَعْلَمُهُنَّ كَثِيرٌ مِنَ النَّاسِ.. فَمَنِ اتَّقَى الشُّبُهَاتِ اسْتَبْرَأَ لِدِينِهِ وَعِرْضِهِ",
-                russian: "От Ну'мана бин Башира, указавшего на свои уши и сказавшего: Я слышал, как Посланник Аллаха говорил: «Дозволенное очевидно, и запретное очевидно, а между ними находится сомнительное... Тот, кто остерегается сомнительного, оберегает свою религию и свою честь».",
-                explanation: "Важнейший принцип богобоязненности — избегать даже сомнительных вещей, чтобы не впасть в открытый грех."
-            },
-            {
-                id: 39,
-                arabic: "عَنْ أَبِي هُرَيْرَةَ عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: سَبْعَةٌ يُظِلُّهُمُ اللَّهُ فِي ظِلِّهِ يَوْمَ لَا ظِلَّ إِلَّا ظِلُّهُ.. (الإمام العادل، شاب نشأ في عبادة الله، رجل قلبه معلق بالمساجد...)",
-                russian: "От Абу Хурайры, что Посланник Аллаха сказал: «Семеро [будут находиться] в тени Аллаха в тот день, когда не будет другой тени: справедливый правитель; юноша, росший в поклонении; человек, чье сердце привязано к мечетям; двое любивших друг друга ради Аллаха; поминавший Аллаха в уединении со слезами на глазах; подавший милостью так скрытно, что левая рука не ведает, что дает правая; и тот, кого позвала красивая знатная женщина, а он сказал: „Поистине, я боюсь Аллаха!“»",
-                explanation: "Праведные деяния, за которые Всевышний дарует великую тень в День Суда."
-            },
-            {
-                id: 40,
-                arabic: "عَنْ أَبِي ذَرٍّ (في حديثه الطويل الجامع في وصايا النبي صلى الله عليه وسلم له في المسجد، وأسئلته عن أفضل الأعمال، وعدد الأنبياء والرسل والكتب المزلّة...)",
-                russian: "Из длинного наставления Пророка Абу Зарру в мечети: о наилучших деяниях (вера и джихад), лучшем нраве, молитве, посте, аятах Аль-Курси, количестве пророков и ниспосланных книгах. В конце Пророк сказал: «О Абу Зарр, нет разума подобного размышлению, нет воздержания подобного оставлению запретного, и нет чести подобной благому нраву!»",
-                explanation: "Великолепное завершение сборника Имама аль-Аджурри, охватывающее важнейшие основы духовного воспитания, вероучения и мудрости."
-            }
-        ];
+      // ПОЛНАЯ БАЗА 40 ХАДИСОВ С ТОЧНЫМИ ТЕКСТАМИ
+      const hadiths = [
+        {
+          id: 1,
+          arabic:
+            "عَنْ أَبِي هُرَيْرَةَ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: مَنْ يُرِدِ اللَّهُ بِهِ خَيْرًا يُفَقِّهْهُ فِي الدِّينِ",
+          russian:
+            "От Абу Хурайры, который сказал: Сказал Посланник Аллаха ﷺ: «Кому Аллах желает блага, даёт понимание в Веровании».",
+          explanation:
+            "Этот хадис указывает на то, что в том, кто не обрёл правильное понимание в своём веровании, нет никакого блага. И если ты скажешь: «Какие признаки должны быть у того, кому Аллах дал понимание?», то это мусульманин, который узнал, что покорность Аллаху выражается путём совершения обязательств так, как Аллах велел, и он получает знания, чтобы правильно поклоняться.",
+        },
+        {
+          id: 2,
+          arabic:
+            "عَنْ أَبِي أُمَامَةَ الْبَاهِلِي: رَضِيَ اللَّهُ عَنْهُ أَنَّ رَسُولَ اللَّهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ قَالَ: عَلَيْكُمْ بِالْعِلْمِ قَبْلَ أَنْ يُقْبَضَ: وَقَبْلَ أَنْ يُرْفَعَ ثُمَّ جَمَعَ بَيْنَ أُصْبُعَيْهِ الْوُسْطَى وَالَّتِي تَلِي الإِبْهَامَ: ثُمَّ قَالَ: الْعَالِمُ وَالْمُتَعَلِّمُ شَرِيكَانِ فِي الْأَجْرِ: وَلَا خَيْرَ فِي النَّاسِ بَعْدُ",
+          russian:
+            "От Абу Умамы аль-Бахили, что Посланник Аллаха ﷺ сказал: «Вам следует получать знания, пока оно не будет забрано, или оно не будет поднято». Затем он сложил свои два пальца, средний и указательный, и сказал: «Знающий и получающий знания являются соучастниками в награде, и нет блага в людях после этого».",
+          explanation:
+            "Осмысли – да помилует Аллах нас и тебя – с чем обратился к тебе Пророк. Он побуждает тебя получать знания до того, как исчезнут обладатели знаний. Благо есть только среди тех, которые получают знания, и тех, которые обучают.",
+        },
+        {
+          id: 3,
+          arabic:
+            "عُمَرَ بْنَ الْخَطَابِ رَضِيَ اللَّهُ عَنْهُ يَقُولُ: إِنَّمَا الْأَعْمَالُ بالنِّيَّةِ: وَإِنَّمَا لِامْرِئٍ مَا نَوَى: فَمَنْ كَانَتْ هِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ فَهِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ: وَمَنْ كَانَتْ هِجْرَتُهُ إِلَى دُنْيَا يُصِيبُهَا أَوِ امْرَأَةٍ يَتَزَوَّجُهَا فَهِجْرَتُهُ إِلَى مَا هَاجَرَ إِلَيْهِ",
+          russian:
+            "От Умара бин аль-Хаттаба: я слышал, как Пророк ﷺ сказал: «Поистине, дела (оцениваются) только по намерению и, поистине, каждому человеку (достанется) лишь то, что он намеревался (обрести). И (поэтому) переселявшийся к Аллаху и Его посланнику (будет считаться) переселившимся к Аллаху и Его посланнику, а переселявшийся ради чего-нибудь мирского, обретёт его, или ради женщины, то женится на ней...»",
+          explanation:
+            "Этот хадис является основой Ислама, и никому из мусульман не разрешается совершать то, что Аллах возложил на него обязанностью, кроме как только имея чистое и правдивое намерение ради Аллаха, а не с целью, чтобы это увидели люди.",
+        },
+        {
+          id: 4,
+          arabic:
+            "عَنِ ابْنِ عُمَرَ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: بُنِيَ الإِسْلَامُ عَلَى خَمْسٍ: شَهَادَةِ أَنْ لَا إِلَهَ إِلَّا اللَّهُ: وَأَنَّ مُحَمَّدًا رَسُولُ اللَّهِ: وَإِقَامِ الصَّلَاةِ: وَإِيتَاءِ الزَّكَاةِ: وَصَوْمِ شَهْرٍ رَمَضَانَ : وَحَجَّ الْبَيْتِ",
+          russian:
+            "От Ибн Умара, что он сказал: Посланник Аллаха ﷺ сказал: «Ислам основывается на пяти (столпах): свидетельстве о том, что нет бога, кроме Аллаха, и что Мухаммад – посланник Аллаха, совершении молитвы, выплате закята, совершении хаджжа и соблюдении поста в рамадане».",
+          explanation:
+            "Познай смысл этого хадиса. Кто оставит одно из этих пяти обязательных деяний, и проявит в него неверие и будет отрицать его, тому не поможет Единобожие, и он не будет мусульманином.",
+        },
+        {
+          id: 5,
+          arabic:
+            "عَنْ عَبْدِ اللَّهِ بْنِ بُرَيْدَةَ عَنْ يَحْيَى بْنِ يَعْمُرَ... عَنْ عُمَرَ بْنِ الْخَطَّابِ: بَيْنَمَا نَحْنُ عِنْدَ رَسُولِ اللَّهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ إِذْ طَلَعَ عَلَيْنَا رَجُلٌ شَدِيدُ بَيَاضِ الثِّيَابِ... فَقَالَ: يَا مُحَمَّدُ أَخْبِرْنِي عَنِ الإِسْلامِ... وَالإِيمَانِ... وَالإِحْسَانِ...",
+          russian:
+            "Из длинного хадиса Джибриля от Умара бин аль-Хаттаба: «Однажды, когда мы сидели с Посланником Аллаха, перед нами появился человек в белоснежной одежде... Он расспросил Пророка об Исламе, Имане (Вере в Аллаха, ангелов, Писания, посланников, Судный день и предопределение), Ихсане (совершенстве в поклонении) и Часе... А в конце Пророк ﷺ сказал: 'Поистине, это Джибриль приходил к вам, дабы научить вас вашему верованию!'»",
+          explanation:
+            "Пророк ﷺ научил тебя посредством этого хадиса сути верования. Совершенство (Ихсан) — это когда ты поклоняешься Аллаху так, как будто ты Его видишь. Кто заботится об этом, тот боится и страшится Аллаха.",
+        },
+        {
+          id: 6,
+          arabic:
+            "عَنْ عَبْدِ اللَّهِ بْنِ مَسْعُودٍ قَالَ: حَدَّثَنَا رَسُولُ اللَّهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ وَهُوَ الصَّادِقُ الْمُصَدَّقُ: إِنَّ خَلْقَ أَحَدِكُمْ يُجْمَعُ فِي بَطْنِ أُمِّهِ أَرْبَعِينَ لَيْلَةً... ثُمَّ يَبْعَثُ اللَّهُ إِلَيْهِ مَلَكًا فَيُؤْمَرُ بِأَرْبَعِ كَلِمَاتٍ فَيَكْتُبُ عَمَلَهُ وَأَجَلَهُ وَرِزْقَهُ وَشَقِيٌّ أَمْ سَعِيدٌ...",
+          russian:
+            "От 'Абдуллаха бин Мас'уда: «Правдивый и достойный доверия Посланник Аллаха ﷺ сказал: 'Поистине, каждый из вас (сначала) формируется во чреве своей матери в течение сорока ночей... а затем Аллах направляет ангела, который записывает его дела, его срок, его удел, а также то, несчастным он будет или счастливым... И любой из вас может совершать дела Рая или Ада до тех пор, пока не сбудется записанное ему...'»",
+          explanation:
+            "Тебе следует знать, что Аллах уже определил удел рабов, сроки жизни, и дела. И верить в предопределение обязательно, и кто в это не верит, тот является неверующим.",
+        },
+        {
+          id: 7,
+          arabic:
+            "عَنْ عَلِيِّ بْنِ أَبِي طَالِبٍ... قَالَ: مَا مِنْكُمْ مِنْ نَفْسٍ مَنْفُوسَةٍ إِلَّا وَقَدْ كُتِبَ مَكَانُهَا مِنَ الْجَنَّةِ وَالنَّارِ... فَقَالَ رَجُلٌ: يَا رَسُولَ اللَّهِ أَفَلَا نَتَّكِلُ عَلَى كِتَابِنَا وَنَدَعُ الْعَمَلَ... فَقَالَ: اعْمَلُوا فَكُلُّ مُيَسَّرٌ لِعَمَلِهِ...",
+          russian:
+            "От Али бин Абу Талиба: «(Однажды) Пророк ﷺ сказал: 'Нет ни одной живой души, место которой в Раю или в Аду уже не было бы определено'. Один человек сказал: 'Так не положиться ли нам на то, что уже предопределено, и не отказаться ли от дел?' Пророк ﷺ ответил: 'Вы совершайте деяния, и каждому будет облегчено к его деянию...'»",
+          explanation:
+            "Вера в это является обязательной. Рабам Аллаха велено совершать деяния в повиновении Ему. И Аллах будет оказывать содействие тем, кого Он любит, в делах повиновения Себе.",
+        },
+        {
+          id: 8,
+          arabic:
+            "عَنِ الْعِرْبَاضِ بْنِ سَارِيَةَ... قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: أُوصِيكُمْ بِتَقْوَى اللَّهِ وَالسَّمْعِ وَالطَّاعَةِ... فَعَلَيْكُمْ بِسُنَّتِي وَسُنَّةِ الْخُلَفَاءِ الرَّاشِدِينَ الْمَهْدِيِّينَ عَضُّوا عَلَيْهَا بِالنَّوَاجِذِ وَإِيَّاكُمْ وَمُحْدَثَاتِ الأُمُورِ فَإِنَّ كُلَّ مُحْدَثَةٍ بِدْعَةٌ وَكُلُّ بِدْعَةٍ ضَلَالَةٌ",
+          russian:
+            "Из хадиса Ирбада бин Сарийя, что Посланник Аллаха ﷺ сказал после сильного увещевания: «Я завещаю вам остерегаться наказания Аллаха, слушаться и повиноваться... Тот из вас, кто проживёт после меня, станет свидетелем многих раздоров, вам же следует придерживаться моей сунны и сунны праведных халифов... И отстраняйтесь от новшеств, ибо каждое нововведение является заблуждением».",
+          explanation:
+            "Этот хадис содержит в себе много знаний: приказ остерегаться наказания Аллаха, слушаться правителей в одобряемом, придерживаться Сунны и предостережение от нововведений (бид'а).",
+        },
+        {
+          id: 9,
+          arabic:
+            "عَنِ ابْنِ مَسْعُودٍ... كَانَ الْكِتَابُ الأَوَّلُ نَزَلَ مِنْ بَابٍ وَاحِدٍ... وَنَزَلَ الْقُرْآنُ مِنْ سَبْعَةِ أَبْوَابٍ عَلَى سَبْعَةِ أَحْرُفٍ زَاجِرٍ وَآمِرٍ وَحَلَالٍ وَحَرَامٍ وَمُحْكَم وَمُتَشَابِةٍ وَأَمْثَالٍ فَأَحِلُّوا حَلَّا لَهُ وَحَرِّمُوا حَرَامَهُ...",
+          russian:
+            "От Ибн Мас'уда: «Посланник Аллаха ﷺ сказал: 'Первая книга была ниспослана в одной полной главе и форме, а Коран был ниспослан через семь дверей, которые соответствуют семи харфам: предостерегающим, велящим, с разъяснениями дозволенного и запретного, с аятами с однозначным смыслом и с многозначным смыслом, и с примерами. Поэтому считайте дозволенным дозволенное в нём, и запретным запретное...'»",
+          explanation:
+            "Коран ниспослан на семи диалектах. Мусульманин обязан следовать предписаниям Корана, действуя по ясным аятам и веруя в аяты с многозначным смыслом, не вступая в споры.",
+        },
+        {
+          id: 10,
+          arabic:
+            "عَن عَبْدِ الرَّحْمَنِ بْنِ عَوْفٍ قَالَ : قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: أَبُو بَكْرٍ فِي الْجَنَّةِ وَعُمَرُ فِي الْجَنَّةِ وَعُثْمَانُ في الْجَنَّةِ وَعَلَى فِي الْجَنَّةِ وَطَلْحَةُ... وَالزُّبَيْرُ... وَعَبْدِ الرَّحْمَنِ... وَسَعْدٌ وَسَعِيدُ... وَأَبُو عُبَيْدَةَ... فِي الْجَنَّةِ",
+          russian:
+            "От Абдуррахмана бин Ауфа: сказал Посланник Аллаха ﷺ: «Абу Бакр в Раю, Умар в Раю, ‘Усман в Раю, ‘Али в Раю, Тальха в Раю, аз-Зубайр в Раю, Абдуррахман в Раю, Са‘д в Раю, Са‘ид бин Зайд в Раю, Абу Убайда бин аль-Джаррах в Раю».",
+          explanation:
+            "Для мусульман является обязательным свидетельствовать о Рае для тех, о ком засвидетельствовал Посланник Аллаха ﷺ. Любовь к этим сподвижникам — признак веры и спасения от лицемерия.",
+        },
+        {
+          id: 11,
+          arabic:
+            "أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: إِنَّ اللَّهَ عَزَّ وَجَلَّ اخْتَارَنِي وَاخْتَارَ لِي أَصْحَابًا فَجَعَلَ لِي مِنْهُمْ وُزَرَاءَ وَأَنْصَارًا وَأَصْهَارًا فَمَنَ سَبَّهُمْ فَعَلَيْهِ لَعْنَةُ اللَّهِ وَالْمَلَائِكَةِ وَالنَّاسِ أَجْمَعِينَ...",
+          russian:
+            "Посланник Аллаха ﷺ сказал: «Поистине, Аллах Всевышний выбрал меня, и Он выбрал для меня сподвижников, и сделал для меня из них содеятелей, помощников и родственников. Кто же будет ругать их, то на нём будет проклятие Аллаха, ангелов и всех людей, и Аллах не примет от него в День Воскрешения ни покаяния, ни искупления».",
+          explanation:
+            "Тот, кто услышал это, полюбит их всех: мухаджиров, ансаров и семью Пророка. Он не будет ругать ни одного из них и будет порицать тех, кто это делает.",
+        },
+        {
+          id: 12,
+          arabic:
+            "عَنْ عَلِيِّ بْنِ أَبِي طَالِبٍ... قَالَ رَسُولُ اللَّهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: الإِيمَانُ قَوْلُ بِالنِّسَانِ وَعَمَلُ بِالْأَرْكَانِ وَيَقِينُ بِالْقَلْبِ",
+          russian:
+            "От Али бин Абу Талиба: сказал Посланник Аллаха ﷺ: «Вера – это сказать языком, делать частями тела и убеждённость сердцем».",
+          explanation:
+            "Этот хадис является великой основой: вера не будет полной без деяний (намаз, закят, пост). Познание сердцем и слова без дел не делают человека верующим, это путь заблудших.",
+        },
+        {
+          id: 13,
+          arabic:
+            "عَنْ عَبْدِ اللَّهِ بْنِ عَمْرِو بْنِ الْعَاصِ: أَنَّ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: ...وَسَتَفْتَرِقُ أُمَّتِي عَلَى ثَلَاثٍ وَسَبْعِينَ مِلَّةً تَزِيدُ عَلَيْهِمْ وَاحِدَةٌ كُلُّهَا فِي النَّارِ إِلَّا مِلَّةً وَاحِدَةً قَالُوا مَنْ هَذِهِ... قَالَ: مَا أَنَا عَلَيْهُ وَأَصْحَابِي",
+          russian:
+            "От 'Абдуллаха бин 'Амра: Пророк ﷺ сказал: «...моя община разделится на семьдесят три толка, и все они окажутся в Огне, кроме одного толка». Сподвижники спросили: «Что это за толк?» Он сказал: «Это тот, на котором я и мои сподвижники».",
+          explanation:
+            "Разумный верующий будет стараться оказаться из этой спасённой общины, строго следуя Книге Аллаха, Сунне Пророка и пути его сподвижников.",
+        },
+        {
+          id: 14,
+          arabic:
+            "عَنْ أُبَيِّ بْنِ كَعْبٍ: أَنَّ رَسُولَ اللَّهِ... دَعَا بِوَضُوءٍ فَتَوَضَّأَ مَرَّةً مَرَّةً فَقَالَ: هَذَا وَظِيفَةُ الْوُضُوءِ الَّذِي لَا يَقْبَلُ اللَّهُ... صَلَاةَ إِلَّا بِهِ ثُمَّ تَوَضَّأَ مَرَّتَيْنِ مَرَّتَيْنِ فَقَالَ: هَذَا وُضُوءُ مَنْ تَوَضَّأَهُ أَعْطَاهُ اللَّهُ كِفْلَيْنِ... ثُمَّ تَوَضَّأَ ثَلاثًا ثَلَاثًا ثُمَّ قَالَ: هَذَا وُضُوبِي وَوُضُوءُ الأَنْبِيَاءِ...",
+          russian:
+            "От 'Убайя бин Ка'ба: Посланник Аллаха ﷺ совершил омовение, омыв части по одному разу, и сказал: «Так должно совершаться омовение, без которого Аллах не примет молитву». Затем по два раза, сказав: «За это двойная награда». Затем по три раза, сказав: «Так совершаю омовение я и пророки до меня».",
+          explanation:
+            "Один раз — обязательно. Три раза — наиболее совершенно (Сунна). Мыть больше трёх раз является выходом за пределы и притеснением.",
+        },
+        {
+          id: 15,
+          arabic:
+            "عَنْ عَبْدِ خَيْرٍ قَالَ: أَتَيْنَا عَلِيَّ بْنَ أَبِي طَالِبٍ... فَدَعَا بِالطَّهُورِ... فَغَسَلَ يَدَيْهِ ثَلَاثًا ثُمَّ مَضْمَضَ وَاسْتَنْشَقَ ثَلَاثًا... ثُمَّ غَسَلَ وَجْهَهُ ثَلَاثًا ثُمَّ غَسَلَ يَدَهُ إِلَى الْمِرْفَقَيْنِ ثَلَاثًا... وَمَسَحَ بِرَأْسِهِ مَرَّةً... ثُمَّ غَسَلَ رِجْلَيْهِ ثَلَاثًا... ثُمَّ قَالَ مَنْ سَرَّهُ أَنْ يَعْلَمَ وُضُوءَ رَسُولِ اللَّهِ فَهُوَ هَذَا",
+          russian:
+            "От 'Абду Хайра о том, как Али бин Абу Талиб показал омовение: «Он вымыл кисти три раза, прополоскал рот и нос по три раза, умыл лицо три раза, помыл руки до локтей по три раза, один раз протёр голову, помыл ноги по три раза. И сказал: 'Кто хочет знать, как совершал омовение Посланник Аллаха ﷺ, то он делал это так'».",
+          explanation:
+            "Это самая полная и лучшая форма совершения омовения, переданная от сподвижников наглядно.",
+        },
+        {
+          id: 16,
+          arabic:
+            "عَن ابْنُ عَبَّاسٍ عَنْ خَالَتُهُ مَيْمُونَةَ... قَالَتْ: وَضَعَتُ لِلنَّبِيِّ غُسْلاً فَاغْتَسَلَ مِنَ الْجَنَابَةِ فَكَفَأُ الإِنَاءَ... فَغَسَلَ كَفَّيْهِ ثُمَّ أَفَاضَ عَلَى فَرْجِهِ فَغَسَلَهُ ثُمَّ... دَلَكَهَا ثُمَّ مَضْمَضَ وَاسْتَنْشَقَ وَغَسَلَ وَجْهَهُ وَذِرَاعَيْهِ وَأَفَاضَ عَلَى رَأْسِهِ ثَلَاثًا ثُمَّ أَفَاضَ عَلَى سَابِرٍ جَسَدِهِ... ثُمَّ غَسَلَ رِجْلَيْهِ...",
+          russian:
+            "От Маймуны (жены Пророка ﷺ) о полном омовении (гусле): «Пророк совершил омовение после осквернения: омыл кисти, затем половые органы и вытер руку о землю. Затем прополоскал рот и нос, умыл лицо и руки, вылил воду на голову три раза, полил на всё тело, затем перешёл на другое место и омыл ноги».",
+          explanation:
+            "Этот хадис подробно описывает Сунну совершения большого омовения (гусля) после состояния осквернения (джанаба).",
+        },
+        {
+          id: 17,
+          arabic:
+            "عَنْ أَبِي الدَّرْدَاءِ قَالَ: قَالَ رَسُولُ اللَّهِ... خَمْسٌ مَنْ جَاءَ بِهِنَّ يَوْمَ الْقِيَامَةِ مَعَ إِيمَانٍ دَخَلَ الْجَنَّةِ مَنْ حَافَظَ عَلَى الصَّلَوَاتِ الْخَمْسِ... وَأَعْطَى الزَّكَاةَ... وَصَامَ رَمَضَانَ وَحَجَّ الْبَيْتِ... وَأَدَّى الأَمَانَةَ (الْغُسْلَ مِنَ الْجَنَابَةِ)",
+          russian:
+            "От Абу ад-Дарды: «Посланник Аллаха ﷺ сказал: 'Кто придёт с пятью деяниями, имея веру, войдёт в Рай: своевременные пять молитв, выплата закята от души, пост в Рамадан, хадж (если сможет) и отдача доверенного (совершение большого омовения от осквернения)'».",
+          explanation:
+            "Разумные имеют убеждение в том, что вера не будет полной, пока не будет деяний. Совершение омовения и молитв должно быть полноценным и со знанием.",
+        },
+        {
+          id: 18,
+          arabic:
+            "عَنِ مُحَمَّدِ بْنِ عَمْرِو... فَقَالَ أَبُو حُمَيْدٍ السَّاعِدِيُّ: أَنَا أُعَلِّمُكُمْ صَلَاةَ رَسُولِ اللَّهِ... رَأَيْتُهُ إِذَا قَامَ كَبَّرَ ثُمَّ قَرَأَ فَإِذَا رَكَعَ أَمْكَنَ كَفَّيْهِ مِنْ رُكْبَتَيْهِ وَفَرَّجَ بَيْنَ أَصَابِعِهِ ثُمَّ هَصَرَ ظَهْرَهُ... فَإِذَا سَجَدَ مَكَّنَ جَبْهَتَهُ وَأَنْفَهُ...",
+          russian:
+            "От Абу Хумайда ас-Са'иди об описании молитвы Пророка ﷺ: «Когда он вставал на молитву, возвеличивал Аллаха (Аллаху акбар). Совершая поясной поклон, упирался ладонями в колени, делая спину ровной. Поднимаясь, выпрямлялся полностью. Совершая земной поклон, касался земли лбом, носом, ладонями, коленями и стопами, и успокаивался в нём...»",
+          explanation:
+            "Выражение «не поднимая голову и не опуская» в поясном поклоне означает удерживать её на одном уровне со спиной на одной плоскости.",
+        },
+        {
+          id: 19,
+          arabic:
+            "عَنْ عَلِيِّ بْنِ يَحْيَى... أَنَّ رَسُولَ اللَّهِ... رَأَى رَجُلًا يُصَلِّي... فَقَالَ لَهُ: ارْجِعْ فَصَلِّ فَإِنَّكَ لَمْ تُصَلِّ... فَقَالَ: عَلِّمْنِي... فَقَالَ: إِذَا أَرَدْتَ الصَّلَاةَ فَأَحْسِنِ الْوُضُوءَ ثُمَّ... اقْرَأْ ثُمَّ ارْكَعْ حَتَّى تَطْمَئِنَّ رَاكِعًا ثُمَّ ارْفَعْ حَتَّى تَعْتَدِلَ قَائِمًا ثُمَّ اسْجُدْ حَتَّى تَطْمَئِنَّ سَاجِدًا...",
+          russian:
+            "Известный хадис о человеке, плохо помолившемся. Пророк ﷺ сказал ему: «Иди, и снова соверши молитву, ибо ты не помолился». Когда тот попросил научить его, Пророк ﷺ сказал: «Соверши хорошо омовение... затем совершай поясные и земные поклоны так, чтобы обязательно какое-то время оставаться в спокойном положении (тума'нина) в каждом из них...»",
+          explanation:
+            "Отсутствие спокойствия (задержки) в поклонах делает молитву недействительной.",
+        },
+        {
+          id: 20,
+          arabic:
+            "عَنْ أَبِي عَبْدِ اللَّهِ الأَشْعَرِي... رَأَى رَجُلًا يُصَلِّي فَجَعَلَ لَا يَرْكَعُ وَيَنْقُرُ فِي سُجُودِهِ... فَقَالَ: لَوْ مَاتَ عَلَى هَذَا لَمَاتَ عَلَى غَيْرِ مِلَّةِ مُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ نَقَرَ صَلَاتَهُ كَمَا يَنْقُرُ الْغُرَابُ الدَّمَ... فَأَسْبِغُوا الْوُضُوءَ وَأَتَمُّوا الرُّكُوعَ وَالسُّجُودَ",
+          russian:
+            "От Абу Абдуллаха аль-Аш'ари: Пророк ﷺ увидел мужчину, который не совершал полноценный поясной поклон и «клевал» в земном поклоне. Пророк ﷺ сказал: «Если этот человек умрёт на этом, то умрёт не на веровании Мухаммада: он клевал в молитве подобно тому, как ворон клюёт кровь... Совершайте же полноценно поклоны!»",
+          explanation:
+            "Тот, кто совершает молитву в спешке («клюёт»), подобен голодному, съевшему один финик, который не насытит его.",
+        },
+        {
+          id: 21,
+          arabic:
+            "عَنْ شَهْرِ بْنِ حَوْشَبٍ... سَمِعَ رَسُولَ اللَّهِ يَقُولُ: ...وَمَنْ قَامَ إِلَى الْوُضُوءِ يَرَاهُ حَقًّا عَلَيْهِ... فَمَضْمَضَ فَاهُ غُفِرَتْ لَهُ ذُنُوبَهُ مَعَ أَوَّلِ قَطْرَةٍ... فَإِذَا غَسَلَ وَجْهَهُ فَمِثْلُ ذَلِكَ... فَإِنْ جَلَسَ جَلَسَ سَالِمًا وَإِنْ صَلَّى تُقْبِلَ مِنْهُ",
+          russian:
+            "От Абу Умамы: Пророк ﷺ сказал: «...Кто станет совершать омовение, считая его своей обязанностью, ополоснув рот, тому будут прощены грехи с первой каплей. Когда будет мыть лицо — так же, руки — так же, протирать голову и мыть ноги — так же. И когда он совершит молитву, она будет принята от него».",
+          explanation:
+            "Эти хадисы являются побуждением для разумных сердец, чтобы они поклонялись Господу хорошим образом, очищаясь от грехов через тщательное омовение.",
+        },
+        {
+          id: 22,
+          arabic:
+            "عَنْ أَبِي أَيُّوبَ الأَنْصَارِي قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: مَنْ تَوَضَّأَ كَمَا أُمِرَ وَصَلَّى كَمَا أُمِرَ غُفِرَ لَهُ مَا تَقَدَّمَ مِنْ عَمَلٍ",
+          russian:
+            "От Абу Аййуба аль-Ансари: сказал Посланник Аллаха ﷺ: «Кто совершит омовение так, как было велено, и совершит молитву так, как было велено, тому будут прощены все его прежние плохие дела».",
+          explanation:
+            "Кто совершит омовение и молитву со знанием, у того достоинство будет великим. Кто делает это с упущением и без знания — это большая беда.",
+        },
+        {
+          id: 23,
+          arabic:
+            "عَنْ أَبِي هُرَيْرَةَ... قَالَ رَسُولُ اللَّهِ: أَيُّمَا رَجُلٍ لَهُ مَالٌ لَمْ يُعْطِ حَقَّ اللَّهِ... إِلَّا جَعَلَهُ اللَّهُ... شُجَاعًا أَقْرَعَ... يَنْهَشُهُ يَوْمَ الْقِيَامَةِ... فَيَقُولُ أَنَا كَنْزُكَ الَّذِي جَمَعْتَ...",
+          russian:
+            "От Абу Хурайры: Посланник Аллаха ﷺ сказал: «Для любого человека, имевшего имущество, с которого он не выплачивал право Аллаха (закят), Аллах сделает в День Воскрешения лысую ядовитую змею, которая будет кусать его... и скажет: 'Я - твои накопления, которые ты собирал'».",
+          explanation:
+            "Это касается только имущества, с которого не выплачивался закят. А то, с которого закят выплачен, является благим и благословенным.",
+        },
+        {
+          id: 24,
+          arabic:
+            "عَنْ أَبِي ذَرٍ... قَالَ النَّبِيُّ: هُمُ الأَخْسَرُونَ... الأَكْثَرُونَ أَمْوَالاً إِلَّا مَنْ قَالَ هَكَذَا وَهَكَذَا... مِنْ بَيْنِ يَدَيْهِ وَمَنْ خَلْفِهِ... ثُمَّ قَالَ: مَا مِنْ صَاحِبِ إِبِلٍ وَلَا بَقَرٍ وَلَا غَنْم لَا يُؤَدِّى زَكَاتَهَا إِلَّا جَاءَتْ يَوْمَ الْقِيَامَةِ أَعْظَمَ مَا كَانَتْ... تَطَأَهُ...",
+          russian:
+            "От Абу Зарра: Посланник Аллаха ﷺ сказал в тени Каабы: «Они потерпят наибольший ущерб — обладатели больших богатств, кроме тех, кто раздавал направо, налево, вперед и назад... К каждому владельцу скота, не выплачивавшему закят, явятся эти животные в День Воскрешения огромными и станут бодать его рогами и топтать копытами...»",
+          explanation:
+            "Хадис строго предупреждает о наказании за скупость и невыплату обязательного закята со скота.",
+        },
+        {
+          id: 25,
+          arabic:
+            "عَنْ أَبِي سَعِيدٍ الْخُدْرِي قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: لَيْسَ فِيمَا دُونَ خَمْسٍ أَوَاقٍ صَدَقَةٌ وَلَيْسَ فِيمَا دُونَ خَمْسِ ذَوْدٍ صَدَقَةٌ وَلَيْسَ فِيمَا دُونَ خَمْسِ أَوْسُقٍ صَدَقَةٌ",
+          russian:
+            "От Абу Са'ида аль-Худри: Посланник Аллаха ﷺ сказал: «Не следует выплачивать садаку (закят) с имущества менее пяти окий (серебра), менее пяти верблюдов и с урожая менее пяти васков».",
+          explanation:
+            "Устанавливается нисаб (порог богатства). 5 окий = 200 дирхамов серебра. Менее этого закят не обязателен. 5 васков = около 600 кг зерна.",
+        },
+        {
+          id: 26,
+          arabic:
+            "عَنِ ابْنِ عُمَرَ أَنَّ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ كَتَبَ كِتَابَ الصَّدَقَةِ... وَلَا يُجْمَعُ بَيْنَ مُتَفَرِّقٍ وَلَا يُفَرَّقُ بَيْنَ مُجْتَمِعٍ خَشْيَةَ الصَّدَقَةِ...",
+          russian:
+            "От Ибн 'Умара о правилах закята: «...нельзя объединять разные стада или разделять стадо из-за боязни (что будет взято большее количество) закята...»",
+          explanation:
+            "Запрещается хитрить с закятом (например, разъединять стадо перед приходом сборщика, чтобы избежать порога обложения).",
+        },
+        {
+          id: 27,
+          arabic:
+            "عَنْ أَبِي هُرَيْرَةَ... قَالَ: مَنْ صَامَ رَمَضَانَ إِيمَانًا وَاحْتِسَابًا غَفَرَ اللَّهُ لَهُ مَا تَقَدَّمَ مِنْ ذَنْبِهِ وَمَنْ قَامَ لَيْلَةَ الْقَدْرِ إِيمَانًا وَاحْتِسَابًا غَفَرَ اللَّهُ لَهُ...",
+          russian:
+            "От Абу Хурайры: Посланник Аллаха ﷺ сказал: «Тому, кто станет соблюдать пост в месяц Рамадан с верой и надеждой на награду Аллаха, будут прощены его прежние грехи. И тому, кто будет выстаивать в молитве ночь предопределения с верой и надеждой, будут прощены прежние грехи».",
+          explanation:
+            "Выражение «с верой» означает: с верой в то, что Аллах вменил это в обязанность. «С надеждой» — искренне надеясь на награду только от Него.",
+        },
+        {
+          id: 28,
+          arabic:
+            "عَنِ ابْنِ عَبَّاسٍ... فَأَمَّا مَنْ شَهِدَ مِنْكُمُ الشَّهْرَ فَلْيَصُمْهُ... يُرِيدُ اللَّهُ بِكُمُ الْيُسْرَ...",
+          russian:
+            "От Ибн Аббаса об истории поста: «В начале Ислама пост был таким: после ночной молитвы запрещалось есть, пить и иметь близость до следующей ночи. Затем Аллах ниспослал облегчение (аят 187 суры аль-Бакара), дозволив это всё ночью до наступления рассвета, пожалев верующих».",
+          explanation:
+            "Этот хадис разъясняет милость Аллаха, Который отменил изначальную тяжелую форму поста и даровал облегчение Своей общине.",
+        },
+        {
+          id: 29,
+          arabic:
+            "عَنِ ابْنِ عُمَرَ... قَالَ رَسُولُ اللَّهِ: إِنَّمَا الشَّهْرُ تِسْعُ وَعِشْرُونَ فَلَا تَصُومُوا حَتَّى تَرَوْهُ وَلَا تُفْطِرُوا حَتَّى تَرَوْهُ فَإِنْ غُمَّ عَلَيْكُمْ فَاقْدُرُوا لَهُ",
+          russian:
+            "От Ибн ’Умара: Посланник Аллаха ﷺ сказал: «Поистине, месяц (состоит из) двадцати девяти дней, поэтому не поститесь, пока не увидите новую луну, и не прекращайте пост, пока не увидите её, а если небо будет закрыто облаками, то рассчитывайте его».",
+          explanation:
+            "Это правило определения начала Рамадана. Месяц начинается с визуального наблюдения молодого месяца (хиляль) или отсчета 30 дней Ша'бана при пасмурной погоде.",
+        },
+        {
+          id: 30,
+          arabic:
+            "عَنِ ابْنِ عَبَّاسٍ... قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: مَنْ أَرَادَ الْحَجَّ فَلْيَتَعَجَّلْ فَإِنَّهُ قَدْ يَمْرَضُ الْمَرِيضُ وَتَضِلُّ الرَّاحِلَةُ وَتَعْرِضُ الْحَاجَةُ",
+          russian:
+            "От Ибн ‘Аббаса: Посланник Аллаха ﷺ сказал: «Кто хочет совершить хадж, пусть поторопится, ибо человек может заболеть, или верховое животное потеряться, или у него может возникнуть какая-либо нужда».",
+          explanation:
+            "Если для тебя настало время и есть возможность, хадж становится обязательным. Не откладывай его, ибо смерть или болезнь могут лишить тебя этой возможности.",
+        },
+        {
+          id: 31,
+          arabic:
+            "عَنْ أَبِي أُمَامَةَ... قَالَ رَسُولُ اللَّهِ: مَنْ لَمْ يَمْنَعْهُ مِنَ الْحَجِّ حَاجَةٌ ظَاهِرَةٌ أَوْ مَرَضٌ حَابِسٌ أَوْ سُلْطَانٌ جَائِرٌ فَلَمْ يَحُجَّ فَلْيَمُتْ إِنْ شَاءَ يَهُودِيًّا وَإِنْ شَاءَ نَصْرَانِيًّا",
+          russian:
+            "От Абу Умамы: Посланник Аллаха ﷺ сказал: «Кого от совершения хаджа не удерживала явная нужда, или тяжёлая болезнь, или правитель-тиран, и он так и не совершил хадж, то пусть умрёт, если хочет, иудеем, или если хочет, христианином».",
+          explanation:
+            "Если человек может совершить хадж, но откладывает его без причины до самой смерти, то за это на нём будет величайший грех.",
+        },
+        {
+          id: 32,
+          arabic:
+            "عَنِ ابْنِ عَبَّاسٍ... فِي قَوْلِهِ: {وَلِلَّهِ عَلَى النَّاسِ حِجُّ الْبَيْتِ مَنِ اسْتَطَاعَ إِلَيْهِ سَبِيلًا} قَالَ: السَّبِيلُ أَنْ يَصِحَّ بَدَنُهُ وَيَكُونَ لَهُ ثَمَنُ زَادٍ وَرَاحِلَةٍ... وَمَنْ كَفَرَ قَالَ: مَنْ كَفَرَ بِالْحَجِّ...",
+          russian:
+            "От Ибн Аббаса о словах Аллаха «...для тех, кто в состоянии совершить к нему путь...»: «Слово 'путь' означает иметь телесное здоровье и средства на дорогу. А слова 'А кто проявит неверие' означают: кто не считает хадж обязательным, тот становится неверующим».",
+          explanation:
+            "Условия обязательности хаджа: здоровье, безопасность пути и наличие средств (провизии и транспорта).",
+        },
+        {
+          id: 33,
+          arabic:
+            "عَنْ شُرَحْبِيلَ بْنِ السَّمْطِ عَنْ سَلْمَانَ الْفَارِسِيِّ... سَمِعْتُ رَسُولَ اللَّهِ يَقُولُ: رِبَاطُ يَوْمٍ فِي سَبِيلِ اللَّهِ خَيْرٌ مِنْ صِيَامِ شَهْرٍ وَقِيَامِهِ وَمَنْ مَاتَ مُرَابِطًا فِي سَبِيلِ اللَّهِ كَانَ لَهُ أَجْرُ مُجَاهِدٍ إِلَى يَوْمِ الْقِيَامَةِ",
+          russian:
+            "Из рассказа о Сальмане аль-Фариси, сказавшем: «Я слышал, как Посланник Аллаха ﷺ сказал: 'День несения дежурства (у границ врага) на пути Аллаха лучше, чем месяц молитв и поста. И кто умрет, неся дежурство, тому будет идти награда до Дня Воскрешения'».",
+          explanation:
+            "Этот хадис указывает на огромную награду (Рибат) за защиту границ мусульманских земель.",
+        },
+        {
+          id: 34,
+          arabic:
+            "عَنْ عُبَادَةَ بْنِ الصَّامِتِ... قَالَ رَسُولُ اللَّهِ: جَاهِدُوا فِي سَبِيلِ اللَّهِ الْقَرِيبَ وَالْبَعِيدَ... فَإِنَّ الْجِهَادَ بَابٌ مِنْ أَبْوَابِ الْجَنَّةِ يُنَجِّي اللَّهُ بِهِ صَاحِبَهُ مِنَ الْهَمِّ وَالْغَمِّ",
+          russian:
+            "От ‘Убады бин ас-Самита: Посланник Аллаха ﷺ сказал: «Усердствуйте ради Аллаха (на Его пути), вблизи и вдалеке... ибо усердие является одной из дверей Рая, и оно спасает усердствующего от забот и печали».",
+          explanation:
+            "Эти хадисы побуждают верующих к усердию на пути Всевышнего, что приносит спасение в обеих мирах.",
+        },
+        {
+          id: 35,
+          arabic:
+            "عَنْ عُبَيْدِ بْنِ عُمَيْرٍ... أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فِي حَجَّةِ الْوَدَاعِ قَالَ: ...وَيَجْتَنِبُ الْكَبَائِرَ الَّتِي نَهَى اللَّهُ عَنْهَا... الشِّرْكُ بِاللَّهِ وَقَتْلُ النَّفْسِ وَالْفِرَارُ يَوْمَ الزَّحْفِ وَالسِّحْرُ وَأَكْلُ مَالِ الْيَتِيمِ وَأَكْلُ الرِّبَا وَقَذْفُ الْمُحْصَنَاتِ وَعُقُوقُ الْوَالِدَيْنِ...",
+          russian:
+            "От ‘Убайда бин ‘Умайра: Посланник Аллаха ﷺ сказал: «Кто будет совершать намаз, платить закят, поститься и сторониться больших грехов... (а это: многобожие, убийство, бегство с поля боя, колдовство, проедание имущества сироты, ростовщичество, обвинение целомудренных женщин, ослушание родителей и посягательство на Запретный Дом), тот обязательно будет в Раю».",
+          explanation:
+            "Хадис перечисляет величайшие пагубные грехи, которых мусульманин обязан избегать любой ценой.",
+        },
+        {
+          id: 36,
+          arabic:
+            "عَنْ جَابِرِ بْنِ عَبْدِ اللَّهِ... لَمَّا تُوُفِّيَ إِبْرَاهِيمُ ابْنُ النَّبِيِّ... ذَرَفَتْ عَيْنَاهُ... فَقَالَ: الْعَيْنُ تَدْمَعُ وَالْقَلْبُ يَحْزَنُ وَلَا نَقُولُ مَا يُسْخِطُ الرَّبَّ عَلَيْكَ يَا إِبْرَاهِيمُ لَمَحْزُونُونَ",
+          russian:
+            "От Джабира бин ‘Абдуллаха о смерти Ибрахима (сына Пророка ﷺ): Пророк положил его себе на колени, из его глаз потекли слёзы, и он сказал: «...Мы опечалены потерей тебя, глаза плачут, сердце скорбит, но мы не станем говорить то, что рассердило бы нашего Господа».",
+          explanation:
+            "Когда верующих постигает беда, они проявляют терпение и плачут без причитаний. Бить себя по щекам, рвать одежду и громко причитать — запрещено (грех времен невежества).",
+        },
+        {
+          id: 37,
+          arabic:
+            "عَنْ تَمِيمٍ الدَّارِيِّ... أَنَّ رَسُولَ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَالَ: الدِّينُ النَّصِيحَةُ الدِّينُ النَّصِيحَةُ الدِّينُ النَّصِيحَةُ قَالُوا: لِمَنْ يَا رَسُولَ اللَّهِ؟ قَالَ: لِلَّهِ وَلِكِتَابِهِ وَلِرَسُولِهِ وَلِأَئِمَّةِ الْمُسْلِمِينَ وَعَامَّتِهِمْ",
+          russian:
+            "От Тамима ад-Дари: Посланник Аллаха ﷺ трижды повторил: «Поистине, верование (религия) — это проявление искренности (насиха)». Спросили: «По отношению к кому?» Он сказал: «По отношению к Аллаху, Его посланнику, Его Книге, предводителям верующих и к простым верующим».",
+          explanation:
+            "Каждому разумному верующему следует изучать, как правильно проявлять искренность к этим категориям, ибо в этом суть Ислама.",
+        },
+        {
+          id: 38,
+          arabic:
+            "عَنِ النُّعْمَانِ بْنِ بَشِيرٍ... سَمِعْتُ رَسُولَ اللَّهِ يَقُولُ: إِنَّ الْحَلَالَ بَيِّنٌ وَإِنَّ الْحَرَامَ بَيِّنٌ وَبَيْنَهُمَا شُبُهَاتٌ لَا يَعْلَمُهَا كَثِيرٌ مِنَ النَّاسِ فَمَنِ اتَّقَى الشُّبُهَاتِ اسْتَبْرَأَ لِدِينِهِ وَعِرْضِهِ...",
+          russian:
+            "От ан-Ну’мана бин Башира: Посланник Аллаха ﷺ сказал: «Дозволенное очевидно и запретное очевидно, а между ними находится сомнительное... Тот, кто остерегается сомнительного, освобождает себя ради своего верования и своей чести, а тот, кто совершает сомнительное, (придёт и к) совершению запретного...»",
+          explanation:
+            "Важнейшее правило: остерегаться того, в чём есть сомнение, чтобы сохранить чистоту своей религии от греха.",
+        },
+        {
+          id: 39,
+          arabic:
+            "عَنْ أَبِي هُرَيْرَةَ... قَالَ: سَبْعَةٌ يُظِلُّهُمُ اللَّهُ فِي ظِلِّهِ يَوْمَ لَا ظِلَّ إِلَّا ظِلُّهُ: إِمَامٌ عَادِلٌ وَشَابٌّ نَشَأَ فِي عِبَادَةِ اللَّهِ... وَرَجُلٌ ذَكَرَ اللَّهَ خَالِيًا فَفَاضَتْ عَيْنَاهُ وَرَجُلَانِ تَحَابَّا فِي اللَّهِ... وَرَجُلٌ قَلْبُهُ مُعَلَّقٌ بِالْمَسَاجِدِ... وَرَجُلٌ تَصَدَّقَ بِصَدَقَةٍ فَأَخْفَاهَا... وَرَجُلٌ دَعَتْهُ امْرَأَةٌ ذَاتُ مَنْصِبٍ وَجَمَالٍ فَقَالَ إِنِّي أَخَافُ اللَّهَ",
+          russian:
+            "От Абу Хурайры: Посланник Аллаха ﷺ сказал: «Семеро (будут) в тени Аллаха в День, когда не будет иной тени: справедливый правитель; юноша, росший в поклонении; плачущий от страха пред Аллахом в одиночестве; двое любящих друг друга ради Аллаха; человек, чье сердце привязано к мечетям; дающий милостыню втайне; и мужчина, отказавший знатной красивой женщине со словами: 'Я боюсь Аллаха'».",
+          explanation:
+            "Это благородный хадис, из которого берут пример все, кто искренне поклоняется Аллаху Всевышнему.",
+        },
+        {
+          id: 40,
+          arabic:
+            "عَنْ أَبِي ذَرٍّ رَضِيَ اللَّهُ عَنْهُ... فِي حَدِيثٍ طَوِيلٍ... قُلْتُ: يَا رَسُولَ اللَّهِ أَيُّ الْأَعْمَالِ أَفْضَلُ؟ قَالَ: إِيمَانٌ بِاللَّهِ وَجِهَادٌ فِي سَبِيلِهِ... ثُمَّ ضَرَبَ بِيَدِهِ عَلَى صَدْرِي وَقَالَ: يَا أَبَا ذَرٍّ لَا عَقْلَ كَالتَّدْبِيرِ وَلَا وَرَعَ كَالْكَفِّ وَلَا حَسَبَ كَحُسْنِ الْخُلُقِ",
+          russian:
+            "Из очень длинного хадиса от Абу Зарра, в котором Пророк ﷺ ответил на множество вопросов: лучшим делом назвал Веру и усердие, лучшим верующим — обладателя лучшего нрава. Он рассказал, что пророков было 124 000, а посланников 313. В конце он ударил рукой по груди Абу Зарра и сказал: «О Абу Зарр, нет разума, подобного (разуму, который) размышляет, и нет воздержания, подобного воздержанию от запретного, и нет чести и достоинства, подобного благому нраву».",
+          explanation:
+            "Этот великий хадис, завершающий сборник, содержит основы веры, истории пророков и мудрые наставления. Просим Аллаха даровать нам полезные знания и праведный нрав!",
+        },
+      ];
 
-        let currentIndex = 0;
-        let bookmarks = JSON.parse(localStorage.getItem('ajurri_bookmarks') || '[]');
+      let currentIndex = 0;
 
-        // Функция для отсечения иснада (берет только текст внутри кавычек «...»)
-        function extractCoreText(text) {
-            const match = text.match(/«(.*?)»/);
-            return match ? match[1] : text;
+      function updateView() {
+        const current = hadiths[currentIndex];
+
+        // Анимация плавного появления
+        const card = document.getElementById("card-container");
+        card.classList.remove("fade-in");
+        void card.offsetWidth; // Триггер рефлоу
+        card.classList.add("fade-in");
+
+        document.getElementById("hadith-num").innerText = current.id;
+        document.getElementById("counter").innerText =
+          `${currentIndex + 1} / 40`;
+        document.getElementById("arabic-text").innerText = current.arabic;
+        document.getElementById("russian-text").innerText = current.russian;
+
+        const expContainer = document.getElementById("explanation-container");
+        if (current.explanation) {
+          document.getElementById("explanation-text").innerText =
+            current.explanation;
+          expContainer.style.display = "block";
+        } else {
+          expContainer.style.display = "none";
         }
 
-        function updateView() {
-            const current = hadiths[currentIndex];
-            
-            document.getElementById('hadith-num').innerText = current.id;
-            document.getElementById('counter').innerText = `${currentIndex + 1} / 40`;
-            document.getElementById('arabic-text').innerText = current.arabic;
-            document.getElementById('russian-text').innerText = current.russian;
-            document.getElementById('explanation-text').innerText = current.explanation;
+        // Навигация
+        document.getElementById("prev-btn").disabled = currentIndex === 0;
+        const nextBtn = document.getElementById("next-btn");
 
-            document.getElementById('prev-btn').disabled = currentIndex === 0;
-            document.getElementById('next-btn').disabled = currentIndex === hadiths.length - 1;
-            
-            if(currentIndex === hadiths.length - 1) {
-                document.getElementById('next-btn').innerHTML = `<span>Конец</span>`;
-            } else {
-                document.getElementById('next-btn').innerHTML = `<span>Вперед</span><svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>`;
-            }
-
-            updateBookmarkIcon();
-            
-            const sidebar = document.getElementById('sidebar');
-            if (!sidebar.classList.contains('hidden')) {
-                toggleSidebar();
-            }
+        if (currentIndex === hadiths.length - 1) {
+          nextBtn.innerHTML = `<span>Завершить</span><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>`;
+        } else {
+          nextBtn.innerHTML = `<span>Вперед</span><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>`;
         }
 
-        function nextHadith() {
-            if (currentIndex < hadiths.length - 1) {
-                currentIndex++;
-                updateView();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
+        // Скролл вверх при перелистывании
+        document.querySelector("main").scrollTop = 0;
+      }
+
+      function nextHadith() {
+        if (currentIndex < hadiths.length - 1) {
+          currentIndex++;
+          updateView();
         }
+      }
 
-        function prevHadith() {
-            if (currentIndex > 0) {
-                currentIndex--;
-                updateView();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
+      function prevHadith() {
+        if (currentIndex > 0) {
+          currentIndex--;
+          updateView();
         }
+      }
 
-        function goToHadith(index) {
-            currentIndex = index;
-            updateView();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function renderSidebarList(filterText = '') {
-            const container = document.getElementById('hadiths-list-container');
-            container.innerHTML = '';
-            
-            const filtered = hadiths.filter(h => {
-                const matchNum = h.id.toString().includes(filterText);
-                const matchRu = h.russian.toLowerCase().includes(filterText.toLowerCase());
-                const matchExp = h.explanation.toLowerCase().includes(filterText.toLowerCase());
-                return matchNum || matchRu || matchExp;
-            });
-
-            if (filtered.length === 0) {
-                container.innerHTML = `<div class="p-6 text-center text-sm text-slate-400">Ничего не найдено</div>`;
-                return;
-            }
-
-            filtered.forEach(h => {
-                const originalIndex = hadiths.findIndex(item => item.id === h.id);
-                const isCurrent = originalIndex === currentIndex;
-                const isBookmarked = bookmarks.includes(h.id);
-                
-                // Используем функцию отсечения иснада для предпросмотра
-                const previewText = extractCoreText(h.russian);
-
-                const item = document.createElement('div');
-                item.className = `p-3.5 hover:bg-slate-50 cursor-pointer flex items-center justify-between transition ${isCurrent ? 'bg-amber-50/50 border-l-4 border-[#c0a16b]' : ''}`;
-                item.onclick = () => goToHadith(originalIndex);
-                
-                item.innerHTML = `
-                    <div class="flex items-center space-x-3 overflow-hidden pr-2">
-                        <span class="w-8 h-8 rounded-full gold-badge flex items-center justify-center text-xs font-bold shrink-0">${h.id}</span>
-                        <p class="text-xs text-slate-700 line-clamp-2 leading-relaxed">${previewText}</p>
-                    </div>
-                    ${isBookmarked ? '<svg class="w-5 h-5 text-amber-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>' : ''}
-                `;
-                container.appendChild(item);
-            });
-        }
-
-        function filterHadiths(val) {
-            renderSidebarList(val);
-        }
-
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const content = document.getElementById('sidebar-content');
-            
-            if (sidebar.classList.contains('hidden')) {
-                sidebar.classList.remove('hidden', 'pointer-events-none');
-                setTimeout(() => {
-                    sidebar.classList.remove('opacity-0');
-                    content.classList.remove('-translate-x-full');
-                }, 10);
-                renderSidebarList();
-            } else {
-                sidebar.classList.add('opacity-0');
-                content.classList.add('-translate-x-full');
-                setTimeout(() => {
-                    sidebar.classList.add('hidden', 'pointer-events-none');
-                }, 300);
-            }
-        }
-
-        function toggleBookmarkCurrent() {
-            const currentId = hadiths[currentIndex].id;
-            const idx = bookmarks.indexOf(currentId);
-            if (idx > -1) {
-                bookmarks.splice(idx, 1);
-                showToast('Хадис удален из избранного');
-            } else {
-                bookmarks.push(currentId);
-                showToast('Хадис добавлен в избранное');
-            }
-            localStorage.setItem('ajurri_bookmarks', JSON.stringify(bookmarks));
-            updateBookmarkIcon();
-        }
-
-        function updateBookmarkIcon() {
-            const currentId = hadiths[currentIndex].id;
-            const isBookmarked = bookmarks.includes(currentId);
-            const icon = document.getElementById('bookmark-icon');
-            const btn = document.getElementById('bookmark-btn');
-            
-            if (isBookmarked) {
-                icon.setAttribute('fill', 'currentColor');
-                btn.classList.add('text-amber-500');
-            } else {
-                icon.setAttribute('fill', 'none');
-                btn.classList.remove('text-amber-500');
-            }
-        }
-
-        function toggleBookmarksList() {
-            const modal = document.getElementById('bookmarks-modal');
-            const container = document.getElementById('bookmarks-container');
-            
-            if (modal.classList.contains('hidden')) {
-                container.innerHTML = '';
-                if (bookmarks.length === 0) {
-                    container.innerHTML = `<div class="p-8 text-center text-sm text-slate-400">У вас пока нет сохраненных хадисов</div>`;
-                } else {
-                    bookmarks.sort((a,b) => a - b).forEach(id => {
-                        const h = hadiths.find(item => item.id === id);
-                        if (!h) return;
-                        const originalIndex = hadiths.findIndex(item => item.id === id);
-                        const previewText = extractCoreText(h.russian);
-                        
-                        const div = document.createElement('div');
-                        div.className = 'p-3 rounded-xl border border-slate-100 hover:bg-slate-50 cursor-pointer flex justify-between items-center transition';
-                        div.onclick = () => {
-                            goToHadith(originalIndex);
-                            toggleBookmarksList();
-                        };
-                        div.innerHTML = `
-                            <div class="pr-2">
-                                <span class="text-[10px] font-bold text-white bg-[#c0a16b] px-2 py-0.5 rounded">Хадис № ${h.id}</span>
-                                <p class="text-xs text-slate-700 mt-1.5 line-clamp-1 font-medium">${previewText}</p>
-                            </div>
-                            <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        `;
-                        container.appendChild(div);
-                    });
-                }
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-            } else {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            }
-        }
-
-        function copyArabic() { fallbackCopy(hadiths[currentIndex].arabic); }
-        function copyRussian() { 
-            const h = hadiths[currentIndex];
-            fallbackCopy(`Хадис №${h.id}\n\n${h.russian}\n\nРазъяснение: ${h.explanation}`);
-        }
-
-        function fallbackCopy(text) {
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.position = "fixed"; 
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            try {
-                document.execCommand('copy');
-                showToast('Скопировано в буфер');
-            } catch (err) {
-                showToast('Ошибка копирования');
-            }
-            document.body.removeChild(textArea);
-        }
-
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            toast.innerText = msg;
-            toast.classList.remove('opacity-0', 'pointer-events-none');
-            setTimeout(() => toast.classList.add('opacity-0', 'pointer-events-none'), 2000);
-        }
-
-        // Свайпы
-        let touchstartX = 0;
-        let touchendX = 0;
-        document.addEventListener('touchstart', e => touchstartX = e.changedTouches[0].screenX);
-        document.addEventListener('touchend', e => {
-            touchendX = e.changedTouches[0].screenX;
-            if (touchendX < touchstartX - 70) nextHadith();
-            if (touchendX > touchstartX + 70) prevHadith();
-        });
-
-        // Клавиатура
-        document.addEventListener('keydown', e => {
-            if (e.key === 'ArrowRight') prevHadith();
-            if (e.key === 'ArrowLeft') nextHadith();
-        });
-
+      function goToHadith(index) {
+        currentIndex = index;
         updateView();
+        toggleSidebar(); // Закрываем меню после выбора
+      }
+
+      // УМНОЕ ОБРЕЗАНИЕ ИСНАДА ДЛЯ МЕНЮ
+      function getPreviewText(text) {
+        // Ищем символ открывающей кавычки « (после иснада)
+        const quoteIndex = text.indexOf("«");
+        if (quoteIndex !== -1) {
+          let res = text
+            .substring(quoteIndex + 1)
+            .replace("»", "")
+            .trim();
+          return res.length > 55 ? res.substring(0, 55) + "..." : res;
+        }
+        // Если кавычек нет, берем начало текста
+        return text.substring(0, 55) + "...";
+      }
+
+      function renderSidebarList(filterText = "") {
+        const container = document.getElementById("hadiths-list-container");
+        container.innerHTML = "";
+
+        const filtered = hadiths.filter((h) => {
+          const searchStr = filterText.toLowerCase();
+          return (
+            h.id.toString().includes(searchStr) ||
+            h.russian.toLowerCase().includes(searchStr) ||
+            (h.explanation && h.explanation.toLowerCase().includes(searchStr))
+          );
+        });
+
+        if (filtered.length === 0) {
+          container.innerHTML = `<div class="p-8 text-center text-sm text-slate-500 font-medium">Ничего не найдено</div>`;
+          return;
+        }
+
+        filtered.forEach((h) => {
+          const originalIndex = hadiths.findIndex((item) => item.id === h.id);
+          const isCurrent = originalIndex === currentIndex;
+          const previewText = getPreviewText(h.russian);
+
+          const item = document.createElement("div");
+          item.className = `p-4 cursor-pointer flex items-center justify-between transition border-b border-slate-100 ${isCurrent ? "bg-[#fef3c7]/40 border-l-4 border-l-[#c0a16b]" : "hover:bg-slate-50"}`;
+          item.onclick = () => goToHadith(originalIndex);
+
+          item.innerHTML = `
+                    <div class="flex items-center space-x-3 overflow-hidden">
+                        <span class="w-8 h-8 rounded-full bg-[#fdfbf7] border border-[#c0a16b]/30 flex items-center justify-center text-xs font-bold text-[#c0a16b] shrink-0">${h.id}</span>
+                        <p class="text-sm text-slate-700 font-medium line-clamp-2 leading-snug">${previewText}</p>
+                    </div>
+                `;
+          container.appendChild(item);
+        });
+      }
+
+      function filterHadiths(val) {
+        renderSidebarList(val);
+      }
+
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const content = document.getElementById("sidebar-content");
+        const searchInput = document.getElementById("search-input");
+
+        if (sidebar.classList.contains("hidden")) {
+          sidebar.classList.remove("hidden", "pointer-events-none");
+          setTimeout(() => {
+            sidebar.classList.remove("opacity-0");
+            content.classList.remove("-translate-x-full");
+          }, 10);
+          renderSidebarList(); // Перерисовать список
+          // Сбросить поиск
+          searchInput.value = "";
+          filterHadiths("");
+        } else {
+          sidebar.classList.add("opacity-0");
+          content.classList.add("-translate-x-full");
+          setTimeout(() => {
+            sidebar.classList.add("hidden", "pointer-events-none");
+          }, 300);
+        }
+      }
+
+      function copyFullHadith() {
+        const h = hadiths[currentIndex];
+        const text = `Хадис №${h.id}\n\nАрабский текст:\n${h.arabic}\n\nПеревод:\n${h.russian}${h.explanation ? "\n\nРазъяснение:\n" + h.explanation : ""}`;
+
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+          document.execCommand("copy");
+          showToast("Хадис скопирован полностью");
+        } catch (err) {
+          showToast("Не удалось скопировать");
+        }
+        document.body.removeChild(textArea);
+      }
+
+      function showToast(msg) {
+        const toast = document.getElementById("toast");
+        document.getElementById("toast-msg").innerText = msg;
+        toast.classList.remove(
+          "opacity-0",
+          "pointer-events-none",
+          "translate-y-4",
+        );
+        setTimeout(() => {
+          toast.classList.add(
+            "opacity-0",
+            "pointer-events-none",
+            "translate-y-4",
+          );
+        }, 2500);
+      }
+
+      // СВАЙПЫ
+      let touchstartX = 0;
+      let touchendX = 0;
+      const mainArea = document.querySelector("main");
+
+      mainArea.addEventListener(
+        "touchstart",
+        (e) => {
+          touchstartX = e.changedTouches[0].screenX;
+        },
+        { passive: true },
+      );
+
+      mainArea.addEventListener(
+        "touchend",
+        (e) => {
+          touchendX = e.changedTouches[0].screenX;
+          handleSwipe();
+        },
+        { passive: true },
+      );
+
+      function handleSwipe() {
+        const swipeThreshold = 70;
+        if (touchendX < touchstartX - swipeThreshold) {
+          nextHadith(); // Свайп влево
+        }
+        if (touchendX > touchstartX + swipeThreshold) {
+          prevHadith(); // Свайп вправо
+        }
+      }
+
+      // Управление с клавиатуры
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight") prevHadith();
+        if (e.key === "ArrowLeft") nextHadith();
+      });
+
+      // Запуск
+      updateView();
     </script>
-</body>
+  </body>
 </html>
