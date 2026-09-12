@@ -9,9 +9,11 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="40 Хадисов">
-    <link rel="apple-touch-icon" href="icon.png">
+    
+    <!-- Принудительное обновление иконки (добавлен ?v=2) -->
+    <link rel="apple-touch-icon" href="image_2.png?v=2">
     <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="icon" type="image/png" href="image_2.png?v=2">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -116,7 +118,7 @@
                 <div>
                     <div class="flex justify-between items-center mb-1.5">
                         <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Арабский текст</span>
-                        <button onclick="copyArabic()" class="text-xs text-emerald-700 hover:underline font-medium">Копировать</button>
+                        <button onclick="copyArabic()" class="text-xs text-[#c0a16b] hover:underline font-medium">Копировать</button>
                     </div>
                     <div class="bg-slate-50/80 p-4 sm:p-5 rounded-2xl border border-slate-100">
                         <p class="arabic-text text-2xl sm:text-3xl leading-loose text-right text-slate-900" id="arabic-text" dir="rtl"></p>
@@ -127,7 +129,7 @@
                 <div>
                     <div class="flex justify-between items-center mb-1.5">
                         <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Перевод</span>
-                        <button onclick="copyRussian()" class="text-xs text-emerald-700 hover:underline font-medium">Копировать</button>
+                        <button onclick="copyRussian()" class="text-xs text-[#c0a16b] hover:underline font-medium">Копировать</button>
                     </div>
                     <p class="text-slate-800 text-sm sm:text-base leading-relaxed font-normal" id="russian-text"></p>
                 </div>
@@ -148,7 +150,7 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                     <span>Назад</span>
                 </button>
-                <button onclick="nextHadith()" id="next-btn" class="flex-1 bg-emerald-700 hover:bg-emerald-800 text-white font-medium py-3 px-4 rounded-xl transition text-sm shadow-md shadow-emerald-700/20 flex items-center justify-center space-x-1.5">
+                <button onclick="nextHadith()" id="next-btn" class="flex-1 gold-badge hover:brightness-110 font-medium py-3 px-4 rounded-xl transition text-sm flex items-center justify-center space-x-1.5 border-none">
                     <span>Вперед</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                 </button>
